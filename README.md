@@ -1,4 +1,4 @@
-# y
+# HalifaxGreeks.ca Source
 
 > The halifaxgreeks.ca site
 
