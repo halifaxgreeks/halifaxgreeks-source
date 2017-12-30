@@ -25,6 +25,10 @@ const resourceStore = {
       contactinfo: 'Contact Info',
       announcements: 'Misc Announcements',
       toggle: 'Αλλαγή Γλώσσας',
+      events: 'Upcoming Events',
+    },
+    events: {
+      heading: 'Upcoming Events',
     },
   },
 
@@ -36,6 +40,10 @@ const resourceStore = {
       contactinfo: 'Πληροφορίες Επικοινωνίας',
       announcements: 'Ανακοινώσεις',
       toggle: 'Switch to English',
+      events: 'Προσεχείς Εκδηλώσεις',
+    },
+    events: {
+      heading: 'Προσεχείς Εκδηλώσεις',
     },
   },
 };

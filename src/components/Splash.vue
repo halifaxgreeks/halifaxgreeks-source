@@ -11,7 +11,7 @@
             <nav class="nav flex-column flex-sm-row">
               <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" href="#">{{ $t('splash.commHallRent') }}</a>
               <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" href="#">{{ $t('splash.bylaws') }}</a>
-              <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" href="#">{{ $t('splash.contactinfo') }}</a>
+              <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" href="#/events">{{ $t('splash.events') }}</a>
               <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" href="#">{{ $t('splash.announcements') }}</a>
             </nav>
         </div>
