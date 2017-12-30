@@ -1,5 +1,5 @@
 <template>
-  <div class="events container">
+  <div class="events container container-small">
     <h1 class="heading">{{ $t('events.heading') }}</h1>
 
     <div class="list-group">
@@ -172,5 +172,19 @@
   .heading {
     margin-top: 2em;
     margin-bottom: 2em;
+  }
+
+
+  @media (min-width: 700px) {
+      .container-small {
+          width: 700px;
+      }
+      .container-large {
+          width: 1500px;
+      } 
+  }
+
+  .container-small, .container-large {
+      max-width: 100%;
   }
 </style>
