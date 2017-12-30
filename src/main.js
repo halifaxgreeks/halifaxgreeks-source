@@ -18,7 +18,7 @@ if (userLang.indexOf('gr') !== -1) {
   userLang = 'en';
 }
 
-let cookieLang = Vue.cookie.get('hfxgreeks_language');
+const cookieLang = Vue.cookie.get('hfxgreeks_language');
 
 if (cookieLang !== undefined || cookieLang !== null) {
   userLang = cookieLang;

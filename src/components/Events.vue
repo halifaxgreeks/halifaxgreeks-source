@@ -4,7 +4,7 @@
       <h1 class="heading">{{ $t('events.heading') }}</h1>
 
       <div class="list-group">
-        <div v-for="event in masterEventList">
+        <div v-for="event in masterList">
           <a v-bind:href="event.htmlLink" target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
               <h5 class="mb-1">{{ generateDateString(event) }}</h5>
@@ -24,9 +24,9 @@
 
   // utility funcs
 
-  function compareDates (a,b) {
-    let a_d = a.start.date || a.start.dateTime;
-    let b_d = b.start.date || b.start.dateTime;
+  function compareDates(a, b) {
+    let aDate = a.start.date || a.start.dateTime;
+    let bDate = b.start.date || b.start.dateTime;
 
     // Compare two dates and returns:
     //  -1 : if a < b
@@ -34,43 +34,41 @@
     //   1 : if a > b
     // NaN : if a or b is an illegal date
     // NOTE: The code inside isFinite does an assignment (=).
-    return (
-        isFinite(a_d=(new Date(a_d)).valueOf()) &&
-        isFinite(b_d=(new Date(b_d)).valueOf()) ?
-        (a_d>b_d)-(a_d<b_d) :
-        NaN
-    );
+    let isFinA = isFinite(aDate = (new Date(aDate)).valueOf());
+    let isFinB = isFinite(bDate = (new Date(bDate)).valueOf());
+
+    return (isFinA && isFinB ? (aDate > bDate) - (aDate < bDate) : NaN);
   }
 
   const API_KEY = 'AIzaSyDp00A7Ol9o-65hJ8dIGkKOQVdTq5p_dVQ';
 
-  function generateGAPIQueryString (optionsObj) {
-    return 'https://www.googleapis.com/calendar/v3/calendars/' 
-          + optionsObj.calendarName + '/events?singleEvents=true&maxResults=' 
-          + optionsObj.maxResults + '&orderBy=startTime&timeMin=' + optionsObj.timeMin;
+
+  function generateGAPIEventPromise (optionsObj) {
+    return gapi.client.init({
+          apiKey: API_KEY,
+        }).then(function() {
+          return gapi.client.request({
+            'path': 'https://www.googleapis.com/calendar/v3/calendars/' + optionsObj.calendarName + '/events?singleEvents=true&maxResults=' + optionsObj.maxResults + '&orderBy=startTime&timeMin=' + optionsObj.timeMin,
+          })
+        });
+  }
+
+  function recordErrorToConsole(reason) {
+    console.log('Error: ' + reason.result.error.message);
   }
 
   export default {
     name: 'Events',
     data() {
       return {
-        infoCalEvents: [],
-        greekschoolCalEvents: [],
+        masterList: [],
       };
     },
-    computed: {
-      masterEventList() {
-        if (this.infoCalEvents.items != undefined 
-          && this.greekschoolCalEvents.items != undefined) {
-          let intermediateForm = this.infoCalEvents.items.concat(this.greekschoolCalEvents.items);
-
-          intermediateForm.sort(compareDates);
-
-          return intermediateForm;
-        }
-      },
-    },
     methods: {
+      addToMasterArray(response) {
+        Array.prototype.push.apply(this.masterList, response.result.items);
+        this.masterList.sort(compareDates);
+      },
       generateDateString(event) {
         let startDate = event.start;
         let endDate = event.end;
@@ -107,46 +105,29 @@
       let yesterdayTimestamp = moment().add(-1, 'days').toISOString();
 
       function start() {
-        // 2. Initialize the JavaScript client library.
-        gapi.client.init({
-          'apiKey': API_KEY,
-        }).then(function() {
-          // 3. Initialize and make the API request.
-          return gapi.client.request({
-            'path': generateGAPIQueryString({
-              calendarName: 'info@halifaxgreeks.ca',
-              maxResults: 5,
-              timeMin: yesterdayTimestamp,
-            }),
-          })
-        }).then(function(response) {
-          self.infoCalEvents = response.result;
-        }, function(reason) {
-          console.log('Error: ' + reason.result.error.message);
-        });
+        generateGAPIEventPromise({
+          calendarName: 'info@halifaxgreeks.ca',
+          maxResults: 5,
+          timeMin: yesterdayTimestamp,
+        }).then(self.addToMasterArray, recordErrorToConsole);
 
-        gapi.client.init({
-          'apiKey': API_KEY,
-        }).then(function() {
-          // 3. Initialize and make the API request.
-          return gapi.client.request({
-            'path': generateGAPIQueryString({
-              calendarName: 'greekschool@halifaxgreeks.ca',
-              maxResults: 5,
-              timeMin: yesterdayTimestamp,
-            }),
-          })
-        }).then(function(response) {
-          self.greekschoolCalEvents = response.result;
-        }, function(reason) {
-          console.log('Error: ' + reason.result.error.message);
-        });
+        generateGAPIEventPromise({
+          calendarName: 'greekschool@halifaxgreeks.ca',
+          maxResults: 5,
+          timeMin: yesterdayTimestamp,
+        }).then(self.addToMasterArray, recordErrorToConsole);
+
+        generateGAPIEventPromise({
+          calendarName: 'metyouth@halifaxgreeks.ca',
+          maxResults: 5,
+          timeMin: yesterdayTimestamp,
+        }).then(self.addToMasterArray, recordErrorToConsole);
       };
       // 1. Load the JavaScript client library.
       gapi.load('client', start);
 
 
-      if (this.$i18n.locale == 'gr') {
+      if (this.$i18n.locale === 'gr') {
         moment.locale('el');
       } else {
         moment.locale('en');
