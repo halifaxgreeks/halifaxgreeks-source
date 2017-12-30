@@ -4,10 +4,11 @@
       <h1 class="heading">{{ $t('events.heading') }}</h1>
 
       <div class="list-group">
-        <div v-for="event in masterList">
+        <div v-for="event in masterList" class="eventItem">
           <a v-bind:href="event.htmlLink" target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">{{ generateDateString(event) }}</h5>
+              <h5 class="mb-1">{{ extractDayMonth(event) }}</h5>
+              <p v-if="isSameDayEvent(event)">{{ extractSingleDayTime(event) }}</p>
             </div>
             <p class="mb-1">{{ event.summary }}</p>
           </a>
@@ -69,34 +70,41 @@
         Array.prototype.push.apply(this.masterList, response.result.items);
         this.masterList.sort(compareDates);
       },
-      generateDateString(event) {
-        let startDate = event.start;
-        let endDate = event.end;
 
-        let format1 = 'D MMMM';
-        let format2 = 'D MMMM h:mma';
+      isSameDayEvent(event) {
+        if (!event.start.dateTime) {
+          return false;
+        }
+        if (moment(event.start.dateTime).isSame(moment(event.end.dateTime), 'day')) {
+          return true;
+        }
+        return false;
+      },
+
+      isSingleAllDayEvent(event) {
+        if (event.start.date && moment.duration((moment(event.end.date)).diff(moment(event.start.date))).asHours() <= 24) {
+          return true;
+        }
+        return false;
+      },
+
+      extractSingleDayTime(event) {
+        let startMoment = moment(event.start.dateTime);
+        let endMoment = moment(event.end.dateTime);
+        return startMoment.format('h:mma') + ' - ' + endMoment.format('h:mma');
+      },
+
+      extractDayMonth(event) {
+        let startMoment = moment(event.start.date || event.start.dateTime);
+        let endMoment = moment(event.end.date || event.end.dateTime);
+
+        let format = 'D MMMM';
 
         if (moment.locale() !== 'el') {
           format1 = "MMMM D";
-          format2 = 'MMMM D h:mma';
         }
 
-        if (event.start.date) {
-          if (moment.duration((moment(event.end.date)).diff(moment(event.start.date))).asHours() <= 24) {
-            return moment(event.start.date).format(format1);
-          }
-          return moment(event.start.date).format(format1) + ' - ' +
-                  moment(event.end.date).format(format1); 
-        }
-
-        // if same day event
-        if (moment(event.start.dateTime).isSame(moment(event.end.dateTime), 'day')) {
-          return moment(event.start.dateTime).format(format2) + ' - ' +
-                  moment(event.end.dateTime).format('h:mma');
-        }
-        return moment(event.start.dateTime).format(format2) + ' - ' +
-                  moment(event.end.dateTime).format(format2); 
-
+        return startMoment.format(format);
       },
     },
     mounted() {
@@ -152,5 +160,9 @@
 
   .container-small {
       max-width: 100%;
+  }
+
+  .eventItem {
+    padding-bottom: 10px;
   }
 </style>
