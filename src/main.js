@@ -1,11 +1,13 @@
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
+import VueCookie from 'vue-cookie';
 import App from './App';
 import router from './router';
 
 Vue.config.productionTip = false;
 
 Vue.use(VueI18n);
+Vue.use(VueCookie);
 
 let userLang = navigator.language || navigator.userLanguage;
 userLang = userLang.toLowerCase();
@@ -14,6 +16,12 @@ if (userLang.indexOf('gr') !== -1) {
   userLang = 'gr';
 } else {
   userLang = 'en';
+}
+
+let cookieLang = Vue.cookie.get('hfxgreeks_language');
+
+if (cookieLang !== undefined || cookieLang !== null) {
+  userLang = cookieLang;
 }
 
 const resourceStore = {

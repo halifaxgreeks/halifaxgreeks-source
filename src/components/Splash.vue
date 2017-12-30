@@ -31,8 +31,12 @@ export default {
     toggleLanguage() {
       if (this.$i18n.locale === 'gr') {
         this.$i18n.locale = 'en';
+        this.$cookie.delete('hfxgreeks_language');
+        this.$cookie.set('hfxgreeks_language', 'en', 7);
       } else {
         this.$i18n.locale = 'gr';
+        this.$cookie.delete('hfxgreeks_language');
+        this.$cookie.set('hfxgreeks_language', 'gr', 7);
       }
     },
   },

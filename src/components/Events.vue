@@ -75,21 +75,29 @@
         let startDate = event.start;
         let endDate = event.end;
 
+        let format1 = 'D MMMM';
+        let format2 = 'D MMMM h:mma';
+
+        if (moment.locale() !== 'el') {
+          format1 = "MMMM D";
+          format2 = 'MMMM D h:mma';
+        }
+
         if (event.start.date) {
           if (moment.duration((moment(event.end.date)).diff(moment(event.start.date))).asHours() <= 24) {
-            return moment(event.start.date).format('D MMMM');
+            return moment(event.start.date).format(format1);
           }
-          return moment(event.start.date).format('D MMMM') + ' - ' +
-                  moment(event.end.date).format('D MMMM'); 
+          return moment(event.start.date).format(format1) + ' - ' +
+                  moment(event.end.date).format(format1); 
         }
 
         // if same day event
         if (moment(event.start.dateTime).isSame(moment(event.end.dateTime), 'day')) {
-          return moment(event.start.dateTime).format('D MMMM h:mma') + ' - ' +
+          return moment(event.start.dateTime).format(format2) + ' - ' +
                   moment(event.end.dateTime).format('h:mma');
         }
-        return moment(event.start.dateTime).format('D MMMM h:mma') + ' - ' +
-                  moment(event.end.dateTime).format('D MMMM h:mma'); 
+        return moment(event.start.dateTime).format(format2) + ' - ' +
+                  moment(event.end.dateTime).format(format2); 
 
       },
     },
