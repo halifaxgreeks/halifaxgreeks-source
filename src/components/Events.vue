@@ -1,18 +1,19 @@
 <template>
-  <div class="events container container-small">
-    <h1 class="heading">{{ $t('events.heading') }}</h1>
+  <div class="events bgimage blurred">
+    <div class="container container-small">
+      <h1 class="heading">{{ $t('events.heading') }}</h1>
 
-    <div class="list-group">
-      <div v-for="event in masterEventList">
-        <a v-bind:href="event.htmlLink" class="list-group-item list-group-item-action flex-column align-items-start">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">{{ generateDateString(event) }}</h5>
-          </div>
-          <p class="mb-1">{{ event.summary }}</p>
-        </a>
+      <div class="list-group">
+        <div v-for="event in masterEventList">
+          <a v-bind:href="event.htmlLink" target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{{ generateDateString(event) }}</h5>
+            </div>
+            <p class="mb-1">{{ event.summary }}</p>
+          </a>
+        </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -23,40 +24,19 @@
 
   // utility funcs
 
-  function convertDate(d) {
-    // Converts the date in d to a date-object. The input can be:
-    //   a date object: returned without modification
-    //  an array      : Interpreted as [year,month,day]. NOTE: month is 0-11.
-    //   a number     : Interpreted as number of milliseconds
-    //                  since 1 Jan 1970 (a timestamp) 
-    //   a string     : Any format supported by the javascript engine, like
-    //                  "YYYY/MM/DD", "MM/DD/YYYY", "Jan 31 2009" etc.
-    //  an object     : Interpreted as an object with year, month and date
-    //                  attributes.  **NOTE** month is 0-11.
-    return (
-        d.constructor === Date ? d :
-        d.constructor === Array ? new Date(d[0],d[1],d[2]) :
-        d.constructor === Number ? new Date(d) :
-        d.constructor === String ? new Date(d) :
-        typeof d === "object" ? new Date(d.year,d.month,d.date) :
-        NaN
-    );
-  }
-
   function compareDates (a,b) {
     let a_d = a.start.date || a.start.dateTime;
     let b_d = b.start.date || b.start.dateTime;
 
-    // Compare two dates (could be of any type supported by the convert
-    // function above) and returns:
+    // Compare two dates and returns:
     //  -1 : if a < b
     //   0 : if a = b
     //   1 : if a > b
     // NaN : if a or b is an illegal date
     // NOTE: The code inside isFinite does an assignment (=).
     return (
-        isFinite(a_d=convertDate(a_d).valueOf()) &&
-        isFinite(b_d=convertDate(b_d).valueOf()) ?
+        isFinite(a_d=(new Date(a_d)).valueOf()) &&
+        isFinite(b_d=(new Date(b_d)).valueOf()) ?
         (a_d>b_d)-(a_d<b_d) :
         NaN
     );
@@ -170,21 +150,18 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .heading {
-    margin-top: 2em;
-    margin-bottom: 2em;
+    padding-top: 0.5em;
+    padding-bottom: 2em;
+    color: white;
   }
-
 
   @media (min-width: 700px) {
       .container-small {
           width: 700px;
       }
-      .container-large {
-          width: 1500px;
-      } 
   }
 
-  .container-small, .container-large {
+  .container-small {
       max-width: 100%;
   }
 </style>

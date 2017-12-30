@@ -41,15 +41,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-  .bgimage {
-    width:100%;
-    height:100vh;
-    background: url('../assets/greek_church.jpg');
-    background-repeat: no-repeat;
-    background-position: top;
-    background-size:cover;
-    background-attachment: fixed;
-  }
 
   .hero-text {
       font-size: 2em;
