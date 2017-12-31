@@ -11,7 +11,7 @@
               <p></p>
             </div>
             <p class="mb-1">{{ $t('info.communityHallRental.text') }}</p>
-            <small>{{ $t('info.communityHallRental.contractText') }} <a href="assets/pdfs/St-Georges-Greek-Hall-Rental-Contract-Jan-2011.pdf">PDF</a></small>
+            <small>{{ $t('info.communityHallRental.contractText') }} <a href="static/pdfs/St-Georges-Greek-Hall-Rental-Contract-Jan-2011.pdf">PDF</a></small>
           </div>
         </div>
       </div>
