@@ -4,7 +4,7 @@
       <h1 class="heading">{{ $t('events.heading') }}</h1>
 
       <div class="list-group">
-        <div v-for="event in masterList" class="eventItem">
+        <div v-for="event in masterList" class="single-card">
           <a v-bind:href="event.htmlLink" target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
               <h5 class="mb-1">{{ extractDayMonth(event) }}</h5>
@@ -12,7 +12,7 @@
             </div>
             <div class="d-flex w-100 justify-content-between">
               <p class="mb-1">{{ event.summary }}</p>
-              <small>{{ event.creator.email }}</small>
+              <small>{{ removeDomain(event.creator.email) }}</small>
             </div>
             <p v-if="event.description !== undefined">{{ event.description }}</p>
           </a>
@@ -73,6 +73,13 @@
       addToMasterArray(response) {
         Array.prototype.push.apply(this.masterList, response.result.items);
         this.masterList.sort(compareDates);
+      },
+
+      removeDomain(email) {
+        if (email.indexOf('@') !== -1) {
+          return email.substring(0, email.indexOf('@')) + ' cal';
+        }
+        return email;
       },
 
       isSameDayEvent(event) {

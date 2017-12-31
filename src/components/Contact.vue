@@ -1,6 +1,6 @@
 <template>
-  <div class="info">
-    <div class="container">
+  <div class="contact bgimage blurred">
+    <div class="container container-small">
       <h1 class="heading">{{ $t('contact.heading') }}</h1>
     </div>
   </div>
@@ -12,7 +12,7 @@
     name: 'Contact',
     data() {
       return {
-        masterList: [],
+        
       };
     },
     methods: {

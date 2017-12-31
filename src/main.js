@@ -36,6 +36,11 @@ const resourceStore = {
     },
     info: {
       heading: 'General Information',
+      communityHallRental: {
+        title: 'Community Hall Reservations',
+        text: 'Our Community Hall, at 38 Purcell\'s Cove Road, Halifax, NS, B3N 1R4, is available for rental as a banquet hall. It has a great location, overlooking the waters of Purcell\'s Cove, and it comes with ample parking , and an outdoor patio. Catering is available, if desired. For more information and reservations, call Jimmy Kyriakakis at (902) 830-1829 (cell).',
+        contractText: 'Hall rental terms and conditions, rates and contract:',
+      },
     },
     contact: {
       heading: 'Contact Us',
@@ -58,6 +63,11 @@ const resourceStore = {
     },
     info: {
       heading: 'Γενική Πληροφόρηση',
+      communityHallRental: {
+        title: 'Ενοικίαση Κοινοτικής Αίθουσας',
+        text: 'Η Κοινοτική Αίθουσά μας, που βρίσκεται στη διεύθυνση 38 Purcell\'s Cove Road, Halifax, NS, B3N 1R4, είναι διαθέσιμη για ενοικίαση ως αίθουσα εκδηλώσεων. Τοποθετημένη επάνω στον κολπίσκο του Purcell, με πολύ γραφική θέα του ορμού, διαθέτει επίσης μεγάλο χώρο στάθμευσης και αυλή. Κέτερινγκ διαθέσιμο. Για περισσότερες πληροφορίες και για να κάνετε κράτηση, τηλεφωνήστε στον Τζίμι Κυριακάκη, αριθμός (902) 830-1829 (κινητό).',
+        contractText: 'Όροι και προϋποθέσεις ενοικίασης, τιμές και συμβόλαιο:'
+      },
     },
     contact: {
       heading: 'Επικοινωνήστε Μαζί Μας',

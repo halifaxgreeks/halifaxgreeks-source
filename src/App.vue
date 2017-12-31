@@ -44,7 +44,7 @@ export default {
     max-width: 100%;
 }
 
-.eventItem {
+.single-card {
   padding-bottom: 10px;
 }
 </style>

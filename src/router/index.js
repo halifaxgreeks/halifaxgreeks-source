@@ -20,7 +20,7 @@ export default new Router({
       component: Events,
     },
     {
-      path: '/inforation',
+      path: '/information',
       name: 'Information',
       component: Info,
     },
