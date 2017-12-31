@@ -34,6 +34,7 @@ const resourceStore = {
       announcements: 'Misc Announcements',
       toggle: 'Αλλαγή Γλώσσας',
       events: 'Upcoming Events',
+      bulletin: 'Current Monthly Bulletin',
     },
     events: {
       heading: 'Upcoming Events',
@@ -49,6 +50,7 @@ const resourceStore = {
       announcements: 'Ανακοινώσεις',
       toggle: 'Switch to English',
       events: 'Προσεχείς Εκδηλώσεις',
+      bulletin: 'Τρεχόν Μηνιαίο Δελτίο',
     },
     events: {
       heading: 'Προσεχείς Εκδηλώσεις',

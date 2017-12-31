@@ -10,6 +10,7 @@
           <br />
             <nav class="nav flex-column flex-sm-row">
               <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" href="#/events">{{ $t('splash.events') }}</a>
+              <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" v-bind:href="generateBulletinLink()">{{ $t('splash.bulletin') }}</a>
             </nav>
         </div>
       </div>
@@ -18,6 +19,9 @@
 </template>
 
 <script>
+
+import moment from 'moment';
+import 'moment/locale/el';
 
 export default {
   name: 'Splash',
@@ -36,6 +40,15 @@ export default {
         this.$cookie.set('hfxgreeks_language', 'gr', 7);
       }
     },
+    generateBulletinLink () {
+      const currentYear = moment().format('YYYY');
+      const currentMonth = moment().format('M');
+
+      let urlString1 = 'http://www.halifaxgreeks.ca/current-bulletin/'
+      let urlString2 = '-post.pdf';
+
+      return urlString1 + currentYear + '-' + currentMonth + urlString2;
+    }
   },
 };
 </script>
