@@ -10,7 +10,11 @@
               <h5 class="mb-1">{{ extractDayMonth(event) }}</h5>
               <p v-if="isSameDayEvent(event)">{{ extractSingleDayTime(event) }}</p>
             </div>
-            <p class="mb-1">{{ event.summary }}</p>
+            <div class="d-flex w-100 justify-content-between">
+              <p class="mb-1">{{ event.summary }}</p>
+              <small>{{ event.creator.email }}</small>
+            </div>
+            <p v-if="event.description !== undefined">{{ event.description }}</p>
           </a>
         </div>
       </div>
