@@ -28,16 +28,17 @@ const resourceStore = {
   en: {
     splash: {
       mainTitle: 'St. George\'s Greek Orthodox Church and Community Centre',
-      commHallRent: 'Community Hall Rental',
-      bylaws: 'Bylaws',
-      contactinfo: 'Contact Info',
-      announcements: 'Misc Announcements',
       toggle: 'Αλλαγή Γλώσσας',
-      events: 'Upcoming Events',
       bulletin: 'Current Monthly Bulletin',
     },
     events: {
       heading: 'Upcoming Events',
+    },
+    info: {
+      heading: 'General Information',
+    },
+    contact: {
+      heading: 'Contact Us',
     },
   },
 
@@ -54,6 +55,12 @@ const resourceStore = {
     },
     events: {
       heading: 'Προσεχείς Εκδηλώσεις',
+    },
+    info: {
+      heading: 'Γενική Πληροφόρηση',
+    },
+    contact: {
+      heading: 'Επικοινωνήστε Μαζί Μας',
     },
   },
 };

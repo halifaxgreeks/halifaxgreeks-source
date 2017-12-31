@@ -9,8 +9,10 @@
 
           <br />
             <nav class="nav flex-column flex-sm-row">
-              <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" href="#/events">{{ $t('splash.events') }}</a>
+              <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" href="#/events">{{ $t('events.heading') }}</a>
               <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" v-bind:href="generateBulletinLink()">{{ $t('splash.bulletin') }}</a>
+              <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" href="#/information">{{ $t('info.heading') }}</a>
+              <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" href="#/contact-us">{{ $t('contact.heading') }}</a>
             </nav>
         </div>
       </div>

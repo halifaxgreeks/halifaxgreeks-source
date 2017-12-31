@@ -150,23 +150,5 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .heading {
-    padding-top: 0.5em;
-    padding-bottom: 2em;
-    color: white;
-  }
-
-  @media (min-width: 700px) {
-      .container-small {
-          width: 700px;
-      }
-  }
-
-  .container-small {
-      max-width: 100%;
-  }
-
-  .eventItem {
-    padding-bottom: 10px;
-  }
+  
 </style>
