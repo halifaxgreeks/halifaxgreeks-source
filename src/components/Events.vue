@@ -101,7 +101,7 @@
         let format = 'D MMMM';
 
         if (moment.locale() !== 'el') {
-          format1 = "MMMM D";
+          format = "MMMM D";
         }
 
         return startMoment.format(format);
