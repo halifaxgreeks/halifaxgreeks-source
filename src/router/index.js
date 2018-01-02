@@ -4,6 +4,7 @@ import Splash from '@/components/Splash';
 import Events from '@/components/Events';
 import Info from '@/components/Info';
 import Contact from '@/components/Contact';
+import CommunityDirectory from '@/components/CommunityDirectory';
 
 Vue.use(Router);
 
@@ -29,5 +30,10 @@ export default new Router({
       name: 'Contact',
       component: Contact,
     },
+    {
+      path: '/community-directory',
+      name: 'CommunityDirectory',
+      component: CommunityDirectory,
+    }
   ],
 });

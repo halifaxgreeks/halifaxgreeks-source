@@ -45,12 +45,12 @@
     return (isFinA && isFinB ? (aDate > bDate) - (aDate < bDate) : NaN);
   }
 
-  const API_KEY = 'AIzaSyDp00A7Ol9o-65hJ8dIGkKOQVdTq5p_dVQ';
+  const G_API_KEY = 'AIzaSyDp00A7Ol9o-65hJ8dIGkKOQVdTq5p_dVQ';
 
 
   function generateGAPIEventPromise (optionsObj) {
     return gapi.client.init({
-          apiKey: API_KEY,
+          apiKey: G_API_KEY,
         }).then(function() {
           return gapi.client.request({
             'path': 'https://www.googleapis.com/calendar/v3/calendars/' + optionsObj.calendarName + '/events?singleEvents=true&maxResults=' + optionsObj.maxResults + '&orderBy=startTime&timeMin=' + optionsObj.timeMin,

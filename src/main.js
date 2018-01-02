@@ -24,7 +24,7 @@ if (cookieLang !== undefined || cookieLang !== null) {
   userLang = cookieLang;
 }
 
-const resourceStore = {
+var resourceStore = {
   en: {
     splash: {
       mainTitle: 'St. George\'s Greek Orthodox Church and Community Centre',
@@ -45,6 +45,9 @@ const resourceStore = {
     contact: {
       heading: 'Contact Us',
     },
+    communityDirectory: {
+      heading: 'Community Directory',
+    }
   },
 
   gr: {
@@ -72,6 +75,9 @@ const resourceStore = {
     contact: {
       heading: 'Επικοινωνήστε Μαζί Μας',
     },
+    communityDirectory: {
+      heading: 'Κοινοτικός Κατάλογος',
+    }
   },
 };
 

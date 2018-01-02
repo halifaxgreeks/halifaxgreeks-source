@@ -5,7 +5,7 @@
 
       <div class="list-group">
         <div class="single-card">
-          <div class="list-group-item list-group-item-action flex-column align-items-start">
+          <div class="list-group-item flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
               <h5 class="mb-1 card-heading">{{ $t('info.communityHallRental.title') }}</h5>
               <p></p>

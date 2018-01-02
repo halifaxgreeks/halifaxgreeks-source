@@ -8,11 +8,12 @@
           <a class="language-toggle-btn btn btn-warning rounded-0" @click="toggleLanguage">{{ $t('splash.toggle') }} </a>
 
           <br />
-            <nav class="nav flex-column flex-sm-row">
+            <nav class="nav flex-column flex-md-row">
               <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" href="#/events">{{ $t('events.heading') }}</a>
               <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" v-bind:href="generateBulletinLink()">{{ $t('splash.bulletin') }}</a>
               <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" href="#/information">{{ $t('info.heading') }}</a>
               <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" href="#/contact-us">{{ $t('contact.heading') }}</a>
+              <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" href="#/community-directory">{{ $t('communityDirectory.heading') }}</a>
             </nav>
         </div>
       </div>
@@ -68,12 +69,12 @@ export default {
       margin-right: 10%;
   }
 
-  @media (min-width: 576px) {
+  @media (min-width: 770px) {
       :not(.nav .nav-link:last-child) {
           border-right: 0;
       }
   }
-  @media (max-width: 576px) {
+  @media (max-width: 770px) {
       :not(.nav .nav-link:last-child) {
           border-bottom: 0;
       }
