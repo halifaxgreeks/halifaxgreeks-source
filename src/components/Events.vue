@@ -10,9 +10,9 @@
               <h5 class="mb-1">{{ extractDayMonth(event) }}</h5>
               <p v-if="isSameDayEvent(event)">{{ extractSingleDayTime(event) }}</p>
             </div>
-            <div class="d-flex w-100 justify-content-between">
+            <div class="d-flex w-100 justify-content-sm-between flex-sm-row flex-column">
               <p class="mb-1">{{ event.summary }}</p>
-              <small>{{ removeDomain(event.creator.email) }}</small>
+              <small>{{ event.creator.email }}</small>
             </div>
             <p v-if="event.description !== undefined">{{ event.description }}</p>
           </a>
@@ -75,13 +75,6 @@
         this.masterList.sort(compareDates);
       },
 
-      removeDomain(email) {
-        if (email.indexOf('@') !== -1) {
-          return email.substring(0, email.indexOf('@')) + ' cal';
-        }
-        return email;
-      },
-
       isSameDayEvent(event) {
         if (!event.start.dateTime) {
           return false;
@@ -126,19 +119,25 @@
       function start() {
         generateGAPIEventPromise({
           calendarName: 'info@halifaxgreeks.ca',
-          maxResults: 5,
+          maxResults: 4,
           timeMin: yesterdayTimestamp,
         }).then(self.addToMasterArray, recordErrorToConsole);
 
         generateGAPIEventPromise({
           calendarName: 'greekschool@halifaxgreeks.ca',
-          maxResults: 5,
+          maxResults: 4,
           timeMin: yesterdayTimestamp,
         }).then(self.addToMasterArray, recordErrorToConsole);
 
         generateGAPIEventPromise({
           calendarName: 'metyouth@halifaxgreeks.ca',
-          maxResults: 5,
+          maxResults: 4,
+          timeMin: yesterdayTimestamp,
+        }).then(self.addToMasterArray, recordErrorToConsole);
+
+        generateGAPIEventPromise({
+          calendarName: 'philoptochos@halifaxgreeks.ca',
+          maxResults: 4,
           timeMin: yesterdayTimestamp,
         }).then(self.addToMasterArray, recordErrorToConsole);
       };
