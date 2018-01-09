@@ -45,7 +45,7 @@ export default {
     },
     generateBulletinLink () {
       const currentYear = moment().format('YYYY');
-      const currentMonth = moment().format('M');
+      const currentMonth = moment().format('MM');
 
       let urlString1 = 'http://www.halifaxgreeks.ca/current-bulletin/'
       let urlString2 = '-post.pdf';
