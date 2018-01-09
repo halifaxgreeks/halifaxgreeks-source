@@ -76,7 +76,7 @@ var resourceStore = {
       heading: 'Επικοινωνήστε Μαζί Μας',
     },
     communityDirectory: {
-      heading: 'Κοινοτικός Τηλ. Κατάλογος',
+      heading: 'Κοινοτικός Τηλ/ος Κατάλογος',
     }
   },
 };
