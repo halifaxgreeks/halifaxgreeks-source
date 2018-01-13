@@ -4,7 +4,8 @@
       <h1 class="heading">{{ $t('events.heading') }}</h1>
 
       <div class="list-group">
-        <div v-for="event in masterList" class="single-card">
+        <div v-for="(event, index) in masterList" class="single-card">
+          <h2 class="month-heading" v-if="((index - 1 > 0) && extractMonth(event)!== extractMonth(masterList[index-1])) || index === 0">{{ extractMonth(event) }}</h2>
           <a v-bind:href="event.htmlLink" target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
               <h5 class="mb-1">{{ extractDayMonth(event) }}</h5>
@@ -110,6 +111,12 @@
 
         return startMoment.format(format);
       },
+
+      extractMonth(event) {
+        let startMoment = moment(event.start.date || event.start.dateTime);
+
+        return startMoment.format('MMMM');
+      }
     },
     mounted() {
       let self = this;
@@ -156,5 +163,11 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.month-heading {
+  color: white;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
   
 </style>
