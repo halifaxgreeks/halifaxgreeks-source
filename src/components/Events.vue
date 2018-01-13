@@ -95,18 +95,24 @@
       },
 
       extractSingleDayTime(event) {
-        let startMomentFormat = moment(event.start.dateTime).format('h:mma');
-        let endMomentFormat = moment(event.end.dateTime).format('h:mma');
+        let startMoment = moment(event.start.dateTime);
+        let startFormatted = startMoment.format('h:mma');
 
-        if (startMomentFormat.split(":")[1].indexOf("00") != -1) {
-          startMomentFormat = startMomentFormat.slice(0, 1) + startMomentFormat.slice(4);
+        let endMoment = moment(event.end.dateTime)
+        let endFormatted = endMoment.format('h:mma');
+
+        let startSplit = startFormatted.split(":");
+        let endSplit = endFormatted.split(":");
+
+        if (startSplit[1].indexOf("00") != -1) {
+          startFormatted = startSplit[0] + startMoment.format('a');
         }
 
-        if (endMomentFormat.split(":")[1].indexOf("00") != -1) {
-          endMomentFormat = endMomentFormat.slice(0, 1) + endMomentFormat.slice(4);
+        if (endSplit[1].indexOf("00") != -1) {
+          endFormatted = endSplit[0] + endMoment.format('a');
         }
-
-        return startMomentFormat + ' - ' + endMomentFormat;
+        
+        return startFormatted + ' - ' + endFormatted;
       },
 
       extractDayMonth(event) {
