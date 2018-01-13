@@ -9,7 +9,7 @@
           <a v-bind:href="event.htmlLink" target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
               <h5 class="mb-1">{{ extractDayMonth(event) }}</h5>
-              <p>{{ extractDayOfWeek(event) }} <span v-if="isSameDayEvent(event)">{{ extractSingleDayTime(event) }}</span></p>
+              <p>{{ extractDayOfWeek(event) }}<span v-if="isSameDayEvent(event)"> {{ extractSingleDayTime(event) }}</span><span v-else>, {{ $t('events.allDay') }}</span></p>
             </div>
             <div class="d-flex w-100 justify-content-sm-between flex-sm-row flex-column">
               <p class="mb-1">{{ event.summary }}</p>
@@ -94,9 +94,18 @@
       },
 
       extractSingleDayTime(event) {
-        let startMoment = moment(event.start.dateTime);
-        let endMoment = moment(event.end.dateTime);
-        return startMoment.format('h:mma') + ' - ' + endMoment.format('h:mma');
+        let startMomentFormat = moment(event.start.dateTime).format('h:mma');
+        let endMomentFormat = moment(event.end.dateTime).format('h:mma');
+
+        if (startMomentFormat.split(":")[1].indexOf("00") != -1) {
+          startMomentFormat = startMomentFormat.slice(0, 1) + startMomentFormat.slice(4);
+        }
+
+        if (endMomentFormat.split(":")[1].indexOf("00") != -1) {
+          endMomentFormat = endMomentFormat.slice(0, 1) + endMomentFormat.slice(4);
+        }
+
+        return startMomentFormat + ' - ' + endMomentFormat;
       },
 
       extractDayMonth(event) {

@@ -33,6 +33,7 @@ var resourceStore = {
     },
     events: {
       heading: 'Upcoming Events',
+      allDay: 'all day',
     },
     info: {
       heading: 'General Information',
@@ -63,6 +64,7 @@ var resourceStore = {
     },
     events: {
       heading: 'Προσεχείς Εκδηλώσεις',
+      allDay: 'ολοήμερο',
     },
     info: {
       heading: 'Γενική Πληροφόρηση',
