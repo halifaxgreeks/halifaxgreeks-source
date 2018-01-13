@@ -4,19 +4,20 @@
       <h1 class="heading">{{ $t('events.heading') }}</h1>
 
       <div class="list-group">
-        <div v-for="(event, index) in masterList" class="single-card">
+        <div v-for="(event, index) in masterList">
           <h2 class="month-heading" v-if="((index - 1 > 0) && extractMonth(event)!== extractMonth(masterList[index-1])) || index === 0">{{ extractMonth(event) }}</h2>
-          <a v-bind:href="event.htmlLink" target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">{{ extractDayMonth(event) }}</h5>
-              <p>{{ extractDayOfWeek(event) }}<span v-if="isSameDayEvent(event)"> {{ extractSingleDayTime(event) }}</span><span v-else>, {{ $t('events.allDay') }}</span></p>
-            </div>
-            <div class="d-flex w-100 justify-content-sm-between flex-sm-row flex-column">
+          <div class="single-card">
+            <a v-bind:href="event.htmlLink" target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{ extractDayMonth(event) }}</h5>
+                <p>{{ extractDayOfWeek(event) }}<span v-if="isSameDayEvent(event)"> {{ extractSingleDayTime(event) }}</span><span v-else>, {{ $t('events.allDay') }}</span></p>
+              </div>
+
               <p class="mb-1">{{ event.summary }}</p>
-              <small>{{ event.creator.email }}</small>
-            </div>
-            <p v-if="event.description !== undefined" v-html="event.description"></p>
-          </a>
+              <p v-if="event.description !== undefined" v-html="event.description"></p>
+              <p class="creator-email">{{ event.creator.email }}</p>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -183,6 +184,14 @@
   color: white;
   padding-bottom: 20px;
   padding-top: 20px;
+}
+
+.creator-email {
+  font-size: 75%;
+  text-align: right;
+  width: 100%;
+  margin-bottom: 0px;
+  color: #b7b7b7;
 }
   
 </style>
