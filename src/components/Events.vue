@@ -184,6 +184,7 @@
   color: white;
   padding-bottom: 20px;
   padding-top: 20px;
+  text-align: right;
 }
 
 .creator-email {
