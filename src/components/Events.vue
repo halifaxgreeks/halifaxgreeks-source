@@ -9,13 +9,13 @@
           <a v-bind:href="event.htmlLink" target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
               <h5 class="mb-1">{{ extractDayMonth(event) }}</h5>
-              <p v-if="isSameDayEvent(event)">{{ extractSingleDayTime(event) }}</p>
+              <p>{{ extractDayOfWeek(event) }} <span v-if="isSameDayEvent(event)">{{ extractSingleDayTime(event) }}</span></p>
             </div>
             <div class="d-flex w-100 justify-content-sm-between flex-sm-row flex-column">
               <p class="mb-1">{{ event.summary }}</p>
               <small>{{ event.creator.email }}</small>
             </div>
-            <p v-if="event.description !== undefined">{{ event.description }}</p>
+            <p v-if="event.description !== undefined" v-html="event.description"></p>
           </a>
         </div>
       </div>
@@ -116,7 +116,13 @@
         let startMoment = moment(event.start.date || event.start.dateTime);
 
         return startMoment.format('MMMM');
-      }
+      },
+
+      extractDayOfWeek(event) {
+        let startMoment = moment(event.start.date || event.start.dateTime);
+
+        return startMoment.format('ddd');
+      },
     },
     mounted() {
       let self = this;
