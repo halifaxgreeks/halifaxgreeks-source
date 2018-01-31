@@ -15,7 +15,7 @@
 
               <p class="mb-1">{{ event.summary }}</p>
               <p v-if="event.description !== undefined" v-html="event.description"></p>
-              <p class="creator-email">{{ event.creator.email }}</p>
+              <p class="organizer-email">{{ event.organizer.email }}</p>
             </a>
           </div>
         </div>
@@ -147,13 +147,19 @@
 
       function start() {
         generateGAPIEventPromise({
-          calendarName: 'info@halifaxgreeks.ca',
+          calendarName: 'greekbulletin@halifaxgreeks.ca',
           maxResults: 4,
           timeMin: yesterdayTimestamp,
         }).then(self.addToMasterArray, recordErrorToConsole);
 
         generateGAPIEventPromise({
           calendarName: 'greekschool@halifaxgreeks.ca',
+          maxResults: 4,
+          timeMin: yesterdayTimestamp,
+        }).then(self.addToMasterArray, recordErrorToConsole);
+
+        generateGAPIEventPromise({
+          calendarName: 'info@halifaxgreeks.ca',
           maxResults: 4,
           timeMin: yesterdayTimestamp,
         }).then(self.addToMasterArray, recordErrorToConsole);
@@ -166,6 +172,30 @@
 
         generateGAPIEventPromise({
           calendarName: 'philoptochos@halifaxgreeks.ca',
+          maxResults: 4,
+          timeMin: yesterdayTimestamp,
+        }).then(self.addToMasterArray, recordErrorToConsole);
+
+        generateGAPIEventPromise({
+          calendarName: 'pta@halifaxgreeks.ca',
+          maxResults: 4,
+          timeMin: yesterdayTimestamp,
+        }).then(self.addToMasterArray, recordErrorToConsole);
+
+        generateGAPIEventPromise({
+          calendarName: 'romiosyni@halifaxgreeks.ca',
+          maxResults: 4,
+          timeMin: yesterdayTimestamp,
+        }).then(self.addToMasterArray, recordErrorToConsole);
+
+        generateGAPIEventPromise({
+          calendarName: 'volunteer@greekfest.org',
+          maxResults: 4,
+          timeMin: yesterdayTimestamp,
+        }).then(self.addToMasterArray, recordErrorToConsole);
+
+        generateGAPIEventPromise({
+          calendarName: 'webteam@halifaxgreeks.ca',
           maxResults: 4,
           timeMin: yesterdayTimestamp,
         }).then(self.addToMasterArray, recordErrorToConsole);
@@ -193,7 +223,7 @@
   text-align: right;
 }
 
-.creator-email {
+.organizer-email {
   font-size: 75%;
   text-align: right;
   width: 100%;
