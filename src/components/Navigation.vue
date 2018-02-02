@@ -1,13 +1,24 @@
 <template>
-  <nav class="navbar navbar-light column sticky-top" style="background-color: #e3f2fd;">
-    <form class="form-inline d-flex justify-content-around">
-      <router-link :to="{ name: 'Splash' }" active-class="active" class="nav-item nav-link">Home</router-link>
-      <router-link :to="{ name: 'CommunityDirectory' }" active-class="active" class="nav-item nav-link">Community Directory</router-link>
-      <router-link :to="{ name: 'Information' }" active-class="active" class="nav-item nav-link">Info</router-link>
-      <router-link :to="{ name: 'Contact' }" active-class="active" class="nav-item nav-link">Contact</router-link>
-      <router-link :to="{ name: 'Events' }" active-class="active" class="nav-item nav-link">Events</router-link>
-    </form>
+  <nav class="navbar navbar-toggleable-md navbar-light bg-faded sticky-top justify-content-around">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse w-auto" id="navbarTogglerDemo01">
+      <ul class="navbar-nav">
+        <router-link tag="li" :to="{ name: 'Splash' }" class="nav-item" active-class="active">
+          <a class="nav-link">{{ $t('splash.title') }}</a>
+        </router-link>
+        <router-link tag="li" :to="{ name: 'CommunityDirectory' }" class="nav-item" active-class="active">
+          <a class="nav-link">{{ $t('communityDirectory.heading') }}</a>
+        </router-link>
+        <router-link tag="li" :to="{ name: 'Events' }" class="nav-item" active-class="active">
+          <a class="nav-link">{{ $t('events.heading') }}</a>
+        </router-link>
+      </ul>
+    </div>
   </nav>
+
+
 </template>
 
 <script>
@@ -34,6 +45,7 @@
 
   nav {
     margin-bottom: 2em;
+    background-color: #80deea;
   }
 
 </style>

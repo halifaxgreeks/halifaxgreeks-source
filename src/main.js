@@ -31,6 +31,7 @@ var resourceStore = {
       mainTitle: 'St. George\'s Greek Orthodox Church and Community Centre',
       toggle: 'Αλλαγή Γλώσσας',
       bulletin: 'Current Monthly Bulletin',
+      title: "Home",
     },
     events: {
       heading: 'Upcoming Events',
@@ -62,6 +63,7 @@ var resourceStore = {
       toggle: 'Switch to English',
       events: 'Προσεχείς Εκδηλώσεις',
       bulletin: 'Τρέχον Μηνιαίο Δελτίο',
+      title: "Αρχική Σελίδα",
     },
     events: {
       heading: 'Προσεχείς Εκδηλώσεις',
@@ -79,7 +81,7 @@ var resourceStore = {
       heading: 'Επικοινωνήστε Μαζί Μας',
     },
     communityDirectory: {
-      heading: 'Κοινοτικός Τηλ/ος Κατάλογος',
+      heading: 'Κοινοτικός Τηλ/ός Κατάλογος',
     }
   },
 };
