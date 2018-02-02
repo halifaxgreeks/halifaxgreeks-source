@@ -7,10 +7,11 @@
         <div v-for="(event, index) in masterList">
           <h2 class="month-heading" v-if="((index > 0) && extractMonth(event)!== extractMonth(masterList[index-1])) || index === 0">{{ extractMonth(event) }}</h2>
           <div class="single-card">
-            <a v-bind:href="event.htmlLink" target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">
+            <a v-bind:href="event.htmlLink" target="_blank" class="list-group-item list-group-item-action flex-column align-items-start" v-bind:class="event.organizer.email.replace(/@|\./g, '')">
               <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">{{ extractDayMonth(event) }}</h5>
-                <p>{{ extractDayOfWeek(event) }}<span v-if="isSameDayEvent(event)"> {{ extractSingleDayTime(event) }}</span><span v-else>, {{ $t('events.allDay') }}</span></p>
+                <h5 class="mb-1">{{ extractDayOfWeek(event) }} {{ extractDayMonth(event) }}</h5>
+
+                <p><span v-if="isSameDayEvent(event)"> {{ extractSingleDayTime(event) }}</span><span v-else>{{ $t('events.allDay') }}</span></p>
               </div>
 
               <p class="mb-1">{{ event.summary }}</p>
@@ -119,10 +120,10 @@
         let startMoment = moment(event.start.date || event.start.dateTime);
         let endMoment = moment(event.end.date || event.end.dateTime);
 
-        let format = 'D MMMM';
+        let format = 'D MMM';
 
         if (moment.locale() !== 'el') {
-          format = "MMMM D";
+          format = "MMM D";
         }
 
         return startMoment.format(format);
@@ -228,7 +229,19 @@
   text-align: right;
   width: 100%;
   margin-bottom: 0px;
-  color: #b7b7b7;
 }
+
+.greekbulletinhalifaxgreeksca {background-color: #CFD8DC; color: #263238;}
+.greekschoolhalifaxgreeksca {background-color:#C8E6C9; color: #1B5E20;}
+.infohalifaxgreeksca {background-color:#BBDEFB; color: #0D47A1;}
+.metyouthhalifaxgreeksca {background-color:#B3E5FC; color: #01579B;}
+.philoptochoshalifaxgreeksca {background-color:#FFCDD2; color: #B71C1C;}
+.ptahalifaxgreeksca {background-color:#F8BBD0; color: #880E4F;}
+.romiosynihalifaxgreeksca {background-color:#FFECB3; color: #FF6F00;}
+.volunteerhalifaxgreeksca {background-color:#B3E5FC; color: #01579B;}
+.webteamhalifaxgreeksca {background-color: #D1C4E9; color: #311B92;}
+
+
+
   
 </style>
