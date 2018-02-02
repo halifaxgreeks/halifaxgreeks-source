@@ -5,7 +5,7 @@
 
       <div class="list-group">
         <div v-for="(event, index) in masterList">
-          <h2 class="month-heading" v-if="((index - 1 > 0) && extractMonth(event)!== extractMonth(masterList[index-1])) || index === 0">{{ extractMonth(event) }}</h2>
+          <h2 class="month-heading" v-if="((index > 0) && extractMonth(event)!== extractMonth(masterList[index-1])) || index === 0">{{ extractMonth(event) }}</h2>
           <div class="single-card">
             <a v-bind:href="event.htmlLink" target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">
               <div class="d-flex w-100 justify-content-between">
@@ -143,61 +143,61 @@
     mounted() {
       let self = this;
 
-      let yesterdayTimestamp = moment().add(-1, 'days').toISOString();
+      let startOfDayTimestamp = moment().startOf('day').toISOString();
 
       function start() {
         generateGAPIEventPromise({
           calendarName: 'greekbulletin@halifaxgreeks.ca',
-          maxResults: 4,
-          timeMin: yesterdayTimestamp,
+          maxResults: 50,
+          timeMin: startOfDayTimestamp,
         }).then(self.addToMasterArray, recordErrorToConsole);
 
         generateGAPIEventPromise({
           calendarName: 'greekschool@halifaxgreeks.ca',
-          maxResults: 4,
-          timeMin: yesterdayTimestamp,
+          maxResults: 50,
+          timeMin: startOfDayTimestamp,
         }).then(self.addToMasterArray, recordErrorToConsole);
 
         generateGAPIEventPromise({
           calendarName: 'info@halifaxgreeks.ca',
-          maxResults: 4,
-          timeMin: yesterdayTimestamp,
+          maxResults: 50,
+          timeMin: startOfDayTimestamp,
         }).then(self.addToMasterArray, recordErrorToConsole);
 
         generateGAPIEventPromise({
           calendarName: 'metyouth@halifaxgreeks.ca',
-          maxResults: 4,
-          timeMin: yesterdayTimestamp,
+          maxResults: 50,
+          timeMin: startOfDayTimestamp,
         }).then(self.addToMasterArray, recordErrorToConsole);
 
         generateGAPIEventPromise({
           calendarName: 'philoptochos@halifaxgreeks.ca',
-          maxResults: 4,
-          timeMin: yesterdayTimestamp,
+          maxResults: 50,
+          timeMin: startOfDayTimestamp,
         }).then(self.addToMasterArray, recordErrorToConsole);
 
         generateGAPIEventPromise({
           calendarName: 'pta@halifaxgreeks.ca',
-          maxResults: 4,
-          timeMin: yesterdayTimestamp,
+          maxResults: 50,
+          timeMin: startOfDayTimestamp,
         }).then(self.addToMasterArray, recordErrorToConsole);
 
         generateGAPIEventPromise({
           calendarName: 'romiosyni@halifaxgreeks.ca',
-          maxResults: 4,
-          timeMin: yesterdayTimestamp,
+          maxResults: 50,
+          timeMin: startOfDayTimestamp,
         }).then(self.addToMasterArray, recordErrorToConsole);
 
         generateGAPIEventPromise({
           calendarName: 'volunteer@greekfest.org',
-          maxResults: 4,
-          timeMin: yesterdayTimestamp,
+          maxResults: 50,
+          timeMin: startOfDayTimestamp,
         }).then(self.addToMasterArray, recordErrorToConsole);
 
         generateGAPIEventPromise({
           calendarName: 'webteam@halifaxgreeks.ca',
-          maxResults: 4,
-          timeMin: yesterdayTimestamp,
+          maxResults: 50,
+          timeMin: startOfDayTimestamp,
         }).then(self.addToMasterArray, recordErrorToConsole);
       };
       // 1. Load the JavaScript client library.
