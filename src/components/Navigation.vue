@@ -52,17 +52,6 @@
       margin-right: 10%;
   }
 
-  @media (min-width: 770px) {
-      :not(.nav .nav-link:last-child) {
-          border-right: 0;
-      }
-  }
-  @media (max-width: 770px) {
-      :not(.nav .nav-link:last-child) {
-          border-bottom: 0;
-      }
-  }
-
   .language-toggle-btn {
       position: absolute;
       right: 0px;
