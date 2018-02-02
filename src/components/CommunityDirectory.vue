@@ -3,6 +3,8 @@
     <div class="container container-small">
       <h1 class="heading">{{ $t('communityDirectory.heading') }}</h1>
 
+      <navigation></navigation>
+
       <div class="list-group">
         <div v-for="card in cards" class="single-card">
           <div class="list-group-item list-group-item-action flex-column align-items-start">

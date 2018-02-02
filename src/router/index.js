@@ -12,6 +12,11 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'Splash_root',
+      component: Splash,
+    },
+    {
+      path: '/splash',
       name: 'Splash',
       component: Splash,
     },

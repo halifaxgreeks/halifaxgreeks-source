@@ -3,6 +3,8 @@
     <div class="container container-small">
       <h1 class="heading">{{ $t('events.heading') }}</h1>
 
+      <navigation></navigation>
+
       <div class="list-group">
         <div v-for="(event, index) in masterList">
           <h2 class="month-heading" v-if="((index > 0) && extractMonth(event)!== extractMonth(masterList[index-1])) || index === 0">{{ extractMonth(event) }}</h2>
@@ -29,6 +31,9 @@
 
   import moment from 'moment';
   import 'moment/locale/el';
+
+  import navigation from '@/components/Navigation';
+
 
   // utility funcs
 

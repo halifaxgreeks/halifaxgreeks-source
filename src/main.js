@@ -3,6 +3,7 @@ import VueI18n from 'vue-i18n';
 import VueCookie from 'vue-cookie';
 import App from './App';
 import router from './router';
+import navigation from '@/components/Navigation';
 
 Vue.config.productionTip = false;
 
@@ -30,6 +31,7 @@ var resourceStore = {
       mainTitle: 'St. George\'s Greek Orthodox Church and Community Centre',
       toggle: 'Αλλαγή Γλώσσας',
       bulletin: 'Current Monthly Bulletin',
+      title: "Home",
     },
     events: {
       heading: 'Upcoming Events',
@@ -61,6 +63,7 @@ var resourceStore = {
       toggle: 'Switch to English',
       events: 'Προσεχείς Εκδηλώσεις',
       bulletin: 'Τρέχον Μηνιαίο Δελτίο',
+      title: "Αρχική Σελίδα",
     },
     events: {
       heading: 'Προσεχείς Εκδηλώσεις',
@@ -78,7 +81,7 @@ var resourceStore = {
       heading: 'Επικοινωνήστε Μαζί Μας',
     },
     communityDirectory: {
-      heading: 'Κοινοτικός Τηλ/ος Κατάλογος',
+      heading: 'Κοινοτικός Τηλ/ός Κατάλογος',
     }
   },
 };
@@ -88,6 +91,8 @@ const i18n = new VueI18n({
   fallbackLocale: 'en',
   messages: resourceStore, // set locale messages
 });
+
+Vue.component('navigation', navigation);
 
 /* eslint-disable no-new */
 new Vue({
