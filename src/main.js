@@ -3,6 +3,7 @@ import VueI18n from 'vue-i18n';
 import VueCookie from 'vue-cookie';
 import App from './App';
 import router from './router';
+import navigation from '@/components/Navigation';
 
 Vue.config.productionTip = false;
 
@@ -88,6 +89,8 @@ const i18n = new VueI18n({
   fallbackLocale: 'en',
   messages: resourceStore, // set locale messages
 });
+
+Vue.component('navigation', navigation);
 
 /* eslint-disable no-new */
 new Vue({
