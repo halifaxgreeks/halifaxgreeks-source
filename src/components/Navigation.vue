@@ -6,13 +6,13 @@
     <div class="collapse navbar-collapse w-auto" id="navbarTogglerDemo01">
       <ul class="navbar-nav">
         <router-link tag="li" :to="{ name: 'Splash' }" class="nav-item" active-class="active">
-          <a class="nav-link">{{ $t('splash.title') }}</a>
+          <a class="nav-link btn btn-outline-info btn-menu-c rounded-0">{{ $t('splash.title') }}</a>
         </router-link>
         <router-link tag="li" :to="{ name: 'CommunityDirectory' }" class="nav-item" active-class="active">
-          <a class="nav-link">{{ $t('communityDirectory.heading') }}</a>
+          <a class="nav-link btn btn-outline-info btn-menu-c rounded-0">{{ $t('communityDirectory.heading') }}</a>
         </router-link>
         <router-link tag="li" :to="{ name: 'Events' }" class="nav-item" active-class="active">
-          <a class="nav-link">{{ $t('events.heading') }}</a>
+          <a class="nav-link btn btn-outline-info btn-menu-c rounded-0">{{ $t('events.heading') }}</a>
         </router-link>
       </ul>
     </div>
@@ -38,14 +38,47 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-  btn {
-    width: 300px;
-    display: inline;
-  }
-
   nav {
     margin-bottom: 2em;
-    background-color: #80deea;
+  }
+
+  .hero-text {
+      font-size: 2em;
+  }
+
+  .header-div {
+      margin-top: 32%;
+      margin-left: 10%;
+      margin-right: 10%;
+  }
+
+  @media (min-width: 770px) {
+      :not(.nav .nav-link:last-child) {
+          border-right: 0;
+      }
+  }
+  @media (max-width: 770px) {
+      :not(.nav .nav-link:last-child) {
+          border-bottom: 0;
+      }
+  }
+
+  .language-toggle-btn {
+      position: absolute;
+      right: 0px;
+      top: 0px;
+      cursor: pointer;
+  }
+
+  .btn-menu-c {
+      border-color: #27ae60;
+      color: #27ae60 !important;
+  }
+
+  .btn-menu-c:hover,.active a {
+      background-color: #27ae60;
+      border-color: #27ae60;
+      color: white !important;
   }
 
 </style>
