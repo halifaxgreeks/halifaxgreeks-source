@@ -1,9 +1,9 @@
 <template>
-  <nav class="navbar navbar-toggleable-md navbar-light bg-faded sticky-top justify-content-around">
+  <nav class="navbar navbar-toggleable-md navbar-light bg-faded sticky-top justify-content-around rounded">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse w-auto" id="navbarTogglerDemo01">
+    <div class="collapse navbar-collapse w-auto d-flex justify-content-around" id="navbarTogglerDemo01">
       <ul class="navbar-nav">
         <router-link tag="li" :to="{ name: 'Splash' }" class="nav-item" active-class="active">
           <a class="nav-link btn btn-outline-info btn-menu-c rounded-0">{{ $t('splash.title') }}</a>
