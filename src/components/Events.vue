@@ -206,6 +206,12 @@
           maxResults: 50,
           timeMin: startOfDayTimestamp,
         }).then(self.addToMasterArray, recordErrorToConsole);
+
+        generateGAPIEventPromise({
+          calendarName: 'fellowship@halifaxgreeks.ca',
+          maxResults: 50,
+          timeMin: startOfDayTimestamp,
+        }).then(self.addToMasterArray, recordErrorToConsole);
       };
       // 1. Load the JavaScript client library.
       gapi.load('client', start);
@@ -253,7 +259,8 @@ a {color: inherit; text-decoration: none;}
 .ptahalifaxgreeksca {background-color: #558B2F;}
 .romiosynihalifaxgreeksca {background-color: #0288D1;}
 .volunteergreekfestorg {background-color: #E64A19;}
-.webteamhalifaxgreeksca {background-color: #673AB7;}
+.webteamhalifaxgreeksca {background-color: #EC407A;}
+.fellowshiphalifaxgreeksca {background-color: #880E4F;}
 
 
 
