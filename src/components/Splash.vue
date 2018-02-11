@@ -3,18 +3,16 @@
     <section class="bgimage">
       <div class="container h-90 d-flex justify-content-center">
         <div class="jumbotron header-div">
+          <a class="language-toggle-btn btn btn-warning rounded-0" @click="toggleLanguage">{{ $t('splash.toggle') }}</a>
           <h1 class="display-3 hero-text">{{ $t('splash.mainTitle') }}</h1>
-
-          <a class="language-toggle-btn btn btn-warning rounded-0" @click="toggleLanguage">{{ $t('splash.toggle') }} </a>
-
           <br />
-            <nav class="nav flex-column flex-md-row">
-              <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" href="#/events">{{ $t('events.heading') }}</a>
-              <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" v-bind:href="generateBulletinLink()">{{ $t('splash.bulletin') }}</a>
-              <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" href="#/information">{{ $t('info.heading') }}</a>
-              <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" href="#/contact-us">{{ $t('contact.heading') }}</a>
-              <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" href="#/community-directory">{{ $t('communityDirectory.heading') }}</a>
-            </nav>
+          <nav class="nav flex-column flex-md-row">
+            <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" href="#/events">{{ $t('events.heading') }}</a>
+            <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" v-bind:href="generateBulletinLink()">{{ $t('splash.bulletin') }}</a>
+            <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" href="#/information">{{ $t('info.heading') }}</a>
+            <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" href="#/contact-us">{{ $t('contact.heading') }}</a>
+            <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" href="#/community-directory">{{ $t('communityDirectory.heading') }}</a>
+          </nav>
         </div>
       </div>
     </section>
@@ -65,8 +63,6 @@ export default {
 
   .header-div {
       margin-top: 32%;
-      margin-left: 10%;
-      margin-right: 10%;
   }
 
   @media (min-width: 770px) {
