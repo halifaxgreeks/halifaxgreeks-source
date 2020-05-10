@@ -11,9 +11,6 @@
         <router-link tag="li" :to="{ name: 'Events' }" class="nav-item" active-class="active">
           <a class="nav-link btn btn-outline-info btn-menu-c rounded-0">{{ $t('events.heading') }}</a>
         </router-link>
-        <router-link tag="li" :to="{ name: 'CommunityDirectory' }" class="nav-item" active-class="active">
-          <a class="nav-link btn btn-outline-info btn-menu-c rounded-0">{{ $t('communityDirectory.heading') }}</a>
-        </router-link>
       </ul>
     </div>
   </nav>
@@ -26,7 +23,7 @@
       return {}
     },
     methods: {
-      
+
     },
     mounted() {
     },

@@ -4,11 +4,14 @@ import VueCookie from 'vue-cookie';
 import App from './App';
 import router from './router';
 import navigation from '@/components/Navigation';
+import VueMarkdown from 'vue-markdown'
 
 Vue.config.productionTip = false;
 
 Vue.use(VueI18n);
 Vue.use(VueCookie);
+Vue.use(VueMarkdown);
+
 
 let userLang = navigator.language || navigator.userLanguage;
 userLang = userLang.toLowerCase();
@@ -21,7 +24,7 @@ if (userLang.indexOf('gr') !== -1) {
 
 const cookieLang = Vue.cookie.get('hfxgreeks_language');
 
-if (cookieLang !== undefined || cookieLang !== null) {
+if (cookieLang !== undefined && cookieLang !== null) {
   userLang = cookieLang;
 }
 
@@ -37,20 +40,6 @@ var resourceStore = {
       heading: 'Upcoming Events',
       allDay: 'All day',
     },
-    info: {
-      heading: 'General Information',
-      communityHallRental: {
-        title: 'Community Hall Reservations',
-        text: 'Our Community Hall, at 38 Purcell\'s Cove Road, Halifax, NS, B3N 1R4, is available for rental as a banquet hall. It has a great location, overlooking the waters of Purcell\'s Cove, and it comes with ample parking , and an outdoor patio. Catering is available, if desired. For more information and reservations, call Jimmy Kyriakakis at (902) 830-1829 (cell).',
-        contractText: 'Hall rental terms and conditions, rates and contract:',
-      },
-    },
-    contact: {
-      heading: 'Contact Us',
-    },
-    communityDirectory: {
-      heading: 'Community Directory',
-    }
   },
 
   gr: {
@@ -69,20 +58,6 @@ var resourceStore = {
       heading: 'Προσεχείς Εκδηλώσεις',
       allDay: 'Ολοήμερο',
     },
-    info: {
-      heading: 'Γενική Πληροφόρηση',
-      communityHallRental: {
-        title: 'Ενοικίαση Κοινοτικής Αίθουσας',
-        text: 'Η Κοινοτική αίθουσά μας, που βρίσκεται στη διεύθυνση 38 Purcell\'s Cove Road, Halifax, NS, B3N 1R4, είναι διαθέσιμη για ενοικίαση ως αίθουσα εκδηλώσεων. Τοποθετημένη επάνω στον κολπίσκο του Purcell, με πολύ γραφική θέα του όρμου, διαθέτει επίσης μεγάλο χώρο στάθμευσης και αυλή. Τροφοδοσία διαθέσιμη. Για περισσότερες πληροφορίες και για να κάνετε κράτηση, τηλεφωνήστε στον Τζίμι Κυριακάκη, αριθμός (902) 830-1829 (κινητό).',
-        contractText: 'Όροι και προϋποθέσεις ενοικίασης, τιμές και συμβόλαιο:'
-      },
-    },
-    contact: {
-      heading: 'Επικοινωνήστε Μαζί Μας',
-    },
-    communityDirectory: {
-      heading: 'Κοινοτικός Τηλ/ός Κατάλογος',
-    }
   },
 };
 
@@ -94,10 +69,88 @@ const i18n = new VueI18n({
 
 Vue.component('navigation', navigation);
 
-/* eslint-disable no-new */
-new Vue({
-  router,
-  i18n,
-  el: '#app',
-  render: h => h(App),
-});
+function processData(data) {
+  var resultObject = {};
+  var lookupTable = {};
+  for (var i = 0; i < data.lists.length; i++) {
+    resultObject[data.lists[i].id] = [];
+    lookupTable[data.lists[i].id] = data.lists[i].name;
+  }
+  for (var i = 0; i < data.cards.length; i++) {
+    if (data.cards[i].idList in resultObject) {
+      resultObject[data.cards[i].idList].push(data.cards[i]);
+    }
+  }
+  for (var i = 0; i < data.lists.length; i++) {
+    Object.defineProperty(resultObject, lookupTable[data.lists[i].id],
+      Object.getOwnPropertyDescriptor(resultObject, data.lists[i].id));
+    delete resultObject[data.lists[i].id];
+  }
+  window.TRELLO_STORE = filterByLang(resultObject, userLang);
+}
+
+function filterByLang(data, userLang) {
+  // filter titles by split on hyphen
+  // filter texts by ENG/GR prefix + hyphen
+
+  Object.keys(data).forEach(function(ele) {
+    var split_key = ele.split(" - ")
+    var new_key = ele
+    if (userLang == 'gr') {
+      new_key = split_key[1]
+    } else {
+      new_key = split_key[0]
+    }
+
+    data[new_key] = data[ele];
+    delete data[ele];
+  });
+
+  console.log(data)
+
+  Object.keys(data).forEach(function(ele) {
+    Object.keys(data[ele]).forEach(function(card_idx) {
+      var card = data[ele][card_idx]
+      if (card) {
+        if (card.name.substring(0, 2) === 'GR' && userLang === 'en') {
+          data[ele].splice(card_idx, 1);
+        } else if (card.name.substring(0, 2) === 'EN' && userLang === 'gr') {
+          data[ele].splice(card_idx, 1);
+        }
+      }
+    })
+  })
+
+  Object.keys(data).forEach(function(ele) {
+    Object.keys(data[ele]).forEach(function(card_idx) {
+      var card = data[ele][card_idx]
+      if (card) {
+        if (card.name.substring(0, 2) === 'GR' || card.name.substring(0, 2) === 'EN') {
+          data[ele][card_idx].name = card.name.slice(3);
+        }
+      }
+    })
+  })
+
+  console.log(data)
+  return data;
+
+}
+
+const TRELLO_API_KEY = '7be906a758676f380f82ff25075964fe';
+
+let response = fetch('https://api.trello.com/1/board/5a4bdbd67abf0132fd60546a?key='
++ TRELLO_API_KEY + '&cards=open&lists=open').then(function (response) {
+    return response.json();
+  }).then(function(data) {
+    processData(data);
+  }).then(function() {
+    /* eslint-disable no-new */
+
+    new Vue({
+      router: router(window.TRELLO_STORE),
+      i18n,
+      el: '#app',
+      render: h => h(App),
+    });
+  });

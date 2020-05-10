@@ -7,11 +7,9 @@
           <h1 class="display-3 hero-text">{{ $t('splash.mainTitle') }}</h1>
           <br />
           <nav class="nav flex-column flex-md-row">
-            <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" href="#/events">{{ $t('events.heading') }}</a>
+            <router-link :to="{ name: 'Events'}" class="nav-link btn btn-outline-info btn-menu-c rounded-0">{{ $t('events.heading') }}</router-link>
             <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" v-bind:href="generateBulletinLink()">{{ $t('splash.bulletin') }}</a>
-            <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" href="#/information">{{ $t('info.heading') }}</a>
-            <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" href="#/contact-us">{{ $t('contact.heading') }}</a>
-            <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" href="#/community-directory">{{ $t('communityDirectory.heading') }}</a>
+            <router-link v-for="key in keys" :to="{ name: key.text}"  class="nav-link btn btn-outline-info btn-menu-c rounded-0">{{ key.text }}</router-link>
           </nav>
         </div>
       </div>
@@ -26,19 +24,19 @@ import 'moment/locale/el';
 
 export default {
   name: 'Splash',
-  data() {
-    return {};
-  },
+  props: ['keys'],
   methods: {
     toggleLanguage() {
       if (this.$i18n.locale === 'gr') {
         this.$i18n.locale = 'en';
         this.$cookie.delete('hfxgreeks_language');
         this.$cookie.set('hfxgreeks_language', 'en', 7);
+        location.reload();
       } else {
         this.$i18n.locale = 'gr';
         this.$cookie.delete('hfxgreeks_language');
         this.$cookie.set('hfxgreeks_language', 'gr', 7);
+        location.reload();
       }
     },
     generateBulletinLink () {
