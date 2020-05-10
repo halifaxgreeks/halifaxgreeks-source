@@ -8,7 +8,7 @@
           <br />
           <nav class="nav flex-column flex-md-row">
             <router-link :to="{ name: 'Events'}" class="nav-link btn btn-outline-info btn-menu-c rounded-0">{{ $t('events.heading') }}</router-link>
-            <a class="nav-link btn btn-outline-info btn-menu-c rounded-0" v-bind:href="generateBulletinLink()">{{ $t('splash.bulletin') }}</a>
+            <!--<a class="nav-link btn btn-outline-info btn-menu-c rounded-0" v-bind:href="generateBulletinLink()">{{ $t('splash.bulletin') }}</a>-->
             <router-link v-for="key in keys" :to="{ name: key.text}"  class="nav-link btn btn-outline-info btn-menu-c rounded-0">{{ key.text }}</router-link>
           </nav>
         </div>
