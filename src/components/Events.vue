@@ -208,6 +208,12 @@
         }).then(self.addToMasterArray, recordErrorToConsole);
 
         generateGAPIEventPromise({
+          calendarName: 'sundayschool@halifaxgreeks.ca',
+          maxResults: 50,
+          timeMin: startOfDayTimestamp,
+        }).then(self.addToMasterArray, recordErrorToConsole);
+
+        generateGAPIEventPromise({
           calendarName: 'fellowship@halifaxgreeks.ca',
           maxResults: 50,
           timeMin: startOfDayTimestamp,
@@ -260,9 +266,7 @@ a {color: inherit; text-decoration: none;}
 .romiosynihalifaxgreeksca {background-color: #0288D1;}
 .volunteergreekfestorg {background-color: #E64A19;}
 .webteamhalifaxgreeksca {background-color: #EC407A;}
+.sundayschoolhalifaxgreeksca {background-color: #880E4F;}
 .fellowshiphalifaxgreeksca {background-color: #880E4F;}
-
-
-
   
 </style>
