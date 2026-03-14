@@ -57,7 +57,7 @@
     return (isFinA && isFinB ? (aDate > bDate) - (aDate < bDate) : NaN);
   }
 
-  const G_API_KEY = 'AIzaSyCqexv6bKmqtJLlmxURvlKN3AK1EGLOdrI';
+  const G_API_KEY = 'AIzaSyDp00A7Ol9o-65hJ8dIGkKOQVdTq5p_dVQ';
 
 
   function generateGAPIEventPromise (optionsObj) {
