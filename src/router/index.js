@@ -1,11 +1,8 @@
-import Vue from 'vue';
-import Router from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 import Splash from '@/components/Splash';
 import Events from '@/components/Events';
 //import CommunityDirectory from '@/components/CommunityDirectory';
 import GenericTrello from '@/components/GenericTrello';
-
-Vue.use(Router);
 
 export default function(trello_store) {
 
@@ -51,7 +48,8 @@ export default function(trello_store) {
     })
   }
 
-  return new Router({
+  return createRouter({
+    history: createWebHistory(),
     routes
   })
 }

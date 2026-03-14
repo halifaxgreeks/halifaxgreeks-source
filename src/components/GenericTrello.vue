@@ -12,7 +12,7 @@
               <h5 class="mb-1">{{ card.name }}</h5>
             </div>
             <div class="d-flex w-100 justify-content-between">
-              <vue-markdown class="mb-1">{{ card.desc }}</vue-markdown>
+              <div class="mb-1" v-html="card.desc"></div>
             </div>
           </div>
         </div>
@@ -22,8 +22,6 @@
 </template>
 
 <script>
-  import VueMarkdown from 'vue-markdown'
-
   export default {
     name: 'GenericTrello',
     props: [
@@ -32,9 +30,6 @@
     ],
     mounted() {
       this.$forceUpdate();
-    },
-    components: {
-      VueMarkdown
     }
   };
 </script>
