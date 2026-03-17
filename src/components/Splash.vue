@@ -27,17 +27,7 @@ export default {
   props: ['keys'],
   methods: {
     toggleLanguage() {
-      if (this.$i18n.locale === 'gr') {
-        this.$i18n.locale = 'en';
-        this.$cookie.delete('hfxgreeks_language');
-        this.$cookie.set('hfxgreeks_language', 'en', 7);
-        location.reload();
-      } else {
-        this.$i18n.locale = 'gr';
-        this.$cookie.delete('hfxgreeks_language');
-        this.$cookie.set('hfxgreeks_language', 'gr', 7);
-        location.reload();
-      }
+      this.$i18n.locale = this.$i18n.locale === 'gr' ? 'en' : 'gr';
     },
     generateBulletinLink () {
       const currentYear = moment().format('YYYY');
