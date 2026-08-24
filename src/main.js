@@ -1,16 +1,8 @@
-import Vue from 'vue';
-import VueI18n from 'vue-i18n';
-import VueCookie from 'vue-cookie';
+import { createApp } from 'vue';
+import { createI18n } from 'vue-i18n';
 import App from './App';
 import router from './router';
 import navigation from '@/components/Navigation';
-import VueMarkdown from 'vue-markdown'
-
-Vue.config.productionTip = false;
-
-Vue.use(VueI18n);
-Vue.use(VueCookie);
-Vue.use(VueMarkdown);
 
 
 let userLang = navigator.language || navigator.userLanguage;
@@ -22,9 +14,12 @@ if (userLang.indexOf('gr') !== -1) {
   userLang = 'en';
 }
 
-const cookieLang = Vue.cookie.get('hfxgreeks_language');
+const cookiePair = document.cookie
+  .split('; ')
+  .find(row => row.startsWith('hfxgreeks_language='));
+const cookieLang = cookiePair ? cookiePair.split('=')[1] : '';
 
-if (cookieLang !== undefined && cookieLang !== null) {
+if (cookieLang && cookieLang.length > 0) {
   userLang = cookieLang;
 }
 
@@ -61,15 +56,22 @@ var resourceStore = {
   },
 };
 
-const i18n = new VueI18n({
+const i18n = createI18n({
+  legacy: false,
   locale: userLang, // set locale
   fallbackLocale: 'en',
   messages: resourceStore, // set locale messages
 });
 
-Vue.component('navigation', navigation);
+// Component registration will be done after app creation
 
 function processData(data) {
+  if (!data || !data.lists || !data.cards) {
+    console.error('Invalid data structure from Trello API', data);
+    window.TRELLO_STORE = {};
+    return;
+  }
+  
   var resultObject = {};
   var lookupTable = {};
   for (var i = 0; i < data.lists.length; i++) {
@@ -137,20 +139,23 @@ function filterByLang(data, userLang) {
 
 }
 
-const TRELLO_API_KEY = '7be906a758676f380f82ff25075964fe';
-
-let response = fetch('https://api.trello.com/1/board/5a4bdbd67abf0132fd60546a?key='
-+ TRELLO_API_KEY + '&cards=open&lists=open').then(function (response) {
+let response = fetch('https://api.trello.com/1/board/5a4bdbd67abf0132fd60546a?'
++ 'cards=open&lists=open').then(function (response) {
+    if (!response.ok) {
+      throw new Error(`Trello API error: ${response.status}`);
+    }
     return response.json();
   }).then(function(data) {
     processData(data);
+  }).catch(function(error) {
+    console.error('Error fetching Trello data:', error);
+    window.TRELLO_STORE = {};
   }).then(function() {
-    /* eslint-disable no-new */
-
-    new Vue({
-      router: router(window.TRELLO_STORE),
-      i18n,
-      el: '#app',
-      render: h => h(App),
-    });
+    const app = createApp(App);
+    
+    app.component('navigation', navigation);
+    app.use(router(window.TRELLO_STORE));
+    app.use(i18n);
+    
+    app.mount('#app');
   });

@@ -21,7 +21,7 @@ export default {
 .bgimage {
     width: 100%;
     min-height: 100vh;
-    background: url('./assets/greek_church_dull.jpg');
+    background: url('~@/assets/greek_church_dull.jpg');
     background-repeat: no-repeat;
     background-position: top;
     background-size: cover;
@@ -29,7 +29,7 @@ export default {
 }
 
 .bgimage.blurred {
-    background: url('./assets/greek_church_dull_blurred.jpg');
+    background: url('~@/assets/greek_church_dull_blurred.jpg');
     background-repeat: no-repeat;
     background-position: top;
     background-size: cover;

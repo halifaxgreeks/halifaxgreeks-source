@@ -1,18 +1,20 @@
-// https://eslint.org/docs/user-guide/configuring
+﻿// https://eslint.org/docs/user-guide/configuring
 
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
+  parser: 'vue-eslint-parser',
   parserOptions: {
-    sourceType: 'module'
+    sourceType: 'module',
+    parser: '@babel/eslint-parser',
+    requireConfigFile: false
   },
   env: {
     browser: true,
   },
-  extends: 'airbnb-base',
+  extends: ['airbnb-base', 'plugin:vue/vue3-essential'],
   // required to lint *.vue files
   plugins: [
-    'html'
+    'vue'
   ],
   // check if imports actually resolve
   settings: {
