@@ -139,8 +139,7 @@ function filterByLang(data, userLang) {
 
 }
 
-let response = fetch('https://api.trello.com/1/board/5a4bdbd67abf0132fd60546a?'
-+ 'cards=open&lists=open').then(function (response) {
+let response = fetch('https://trello.com/b/InAnsPaW.json').then(function (response) {
     if (!response.ok) {
       throw new Error(`Trello API error: ${response.status}`);
     }
