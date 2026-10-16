@@ -1,9 +1,7 @@
 <template>
   <div class="community-directory bgimage blurred">
     <div class="container container-small">
-      <h1 class="heading">{{ title }}</h1>
-
-      <navigation></navigation>
+      <HeaderHero :title="title" />
 
       <div class="list-group">
         <div v-for="card in cards" class="single-card">
@@ -30,6 +28,9 @@
     ],
     mounted() {
       this.$forceUpdate();
+    },
+    components: {
+      HeaderHero: () => import('@/components/HeaderHero')
     }
   };
 </script>

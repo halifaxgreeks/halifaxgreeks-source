@@ -8,9 +8,26 @@
         <router-link tag="li" :to="{ name: 'Splash' }" class="nav-item" active-class="active">
           <a class="nav-link btn btn-outline-info btn-menu-c rounded-0">{{ $t('splash.title') }}</a>
         </router-link>
-        <router-link tag="li" :to="{ name: 'Events' }" class="nav-item" active-class="active">
-          <a class="nav-link btn btn-outline-info btn-menu-c rounded-0">{{ $t('events.heading') }}</a>
-        </router-link>
+        <template v-if="navKeys && navKeys.length">
+          <router-link
+            v-for="key in navKeys"
+            :key="key"
+            tag="li"
+            :to="routeFor(key)"
+            class="nav-item"
+            active-class="active"
+          >
+            <a class="nav-link btn btn-outline-info btn-menu-c rounded-0">{{ key }}</a>
+          </router-link>
+        </template>
+        <template v-else>
+          <router-link tag="li" :to="{ name: 'Events' }" class="nav-item" active-class="active">
+            <a class="nav-link btn btn-outline-info btn-menu-c rounded-0">{{ $t('events.heading') }}</a>
+          </router-link>
+          <router-link tag="li" :to="{ name: 'DonateForm' }" class="nav-item" active-class="active">
+            <a class="nav-link btn btn-outline-info btn-menu-c rounded-0">{{ $t('donate.title') }}</a>
+          </router-link>
+        </template>
       </ul>
     </div>
   </nav>
@@ -22,11 +39,27 @@
     data() {
       return {}
     },
+    computed: {
+      navKeys() {
+        try {
+          if (window && window.TRELLO_STORE) {
+            return Object.keys(window.TRELLO_STORE || {});
+          }
+        } catch (e) {}
+        return [];
+      }
+    },
     methods: {
-
+      routeFor(key) {
+        if (!key) return { name: 'Splash' };
+        const lower = String(key).toLowerCase();
+        if (lower === 'upcoming events' || lower === 'events') return { name: 'Events' };
+        if (lower === 'donate' || lower === 'donations') return { name: 'DonateForm' };
+        if (lower === 'home' || lower === 'splash') return { name: 'Splash' };
+        return { name: key };
+      }
     },
-    mounted() {
-    },
+    mounted() {},
   };
 </script>
 
@@ -37,15 +70,16 @@
     margin-bottom: 2em;
   }
 
-  .btn-menu-c {
-      border-color: #27ae60;
-      color: #27ae60 !important;
-  }
+    /* Match donation button (info) colour */
+    .btn-menu-c {
+      border-color: #17a2b8;
+      color: #17a2b8 !important;
+    }
 
-  .btn-menu-c:hover,.active a {
-      background-color: #27ae60;
-      border-color: #27ae60;
+    .btn-menu-c:hover,.active a {
+      background-color: #17a2b8;
+      border-color: #17a2b8;
       color: white !important;
-  }
+    }
 
 </style>

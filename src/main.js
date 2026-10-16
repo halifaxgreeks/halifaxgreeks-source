@@ -3,6 +3,8 @@ import { createI18n } from 'vue-i18n';
 import App from './App';
 import router from './router';
 import navigation from '@/components/Navigation';
+import en from './locales/en';
+import gr from './locales/gr';
 
 
 let userLang = navigator.language || navigator.userLanguage;
@@ -23,38 +25,7 @@ if (cookieLang && cookieLang.length > 0) {
   userLang = cookieLang;
 }
 
-var resourceStore = {
-  en: {
-    splash: {
-      mainTitle: 'St. George\'s Greek Orthodox Church and Community Centre',
-      toggle: 'Αλλαγή Γλώσσας',
-      bulletin: 'Current Monthly Bulletin',
-      title: "Home",
-    },
-    events: {
-      heading: 'Upcoming Events',
-      allDay: 'All day',
-    },
-  },
-
-  gr: {
-    splash: {
-      mainTitle: 'Ελληνική Ορθόδοξη Εκκλησία Αγ. Γεωργίου και Κοινοτικό Κέντρο',
-      commHallRent: 'Ενοικίαση Κοινοτικής Αίθουσας',
-      bylaws: 'Εσωτερικοί Κανονισμοί',
-      contactinfo: 'Πληροφορίες Επικοινωνίας',
-      announcements: 'Ανακοινώσεις',
-      toggle: 'Switch to English',
-      events: 'Προσεχείς Εκδηλώσεις',
-      bulletin: 'Τρέχον Μηνιαίο Δελτίο',
-      title: "Αρχική Σελίδα",
-    },
-    events: {
-      heading: 'Προσεχείς Εκδηλώσεις',
-      allDay: 'Ολοήμερο',
-    },
-  },
-};
+const resourceStore = { en, gr };
 
 const i18n = createI18n({
   legacy: false,

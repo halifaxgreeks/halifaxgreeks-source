@@ -3,13 +3,12 @@
     <section class="bgimage">
       <div class="container h-90 d-flex justify-content-center">
         <div class="jumbotron header-div">
-          <a class="language-toggle-btn btn btn-warning rounded-0" @click="toggleLanguage">{{ $t('splash.toggle') }}</a>
           <h1 class="display-3 hero-text">{{ $t('splash.mainTitle') }}</h1>
           <br />
           <nav class="nav flex-column flex-md-row">
             <router-link :to="{ name: 'Events'}" class="nav-link btn btn-outline-info btn-menu-c rounded-0">{{ $t('events.heading') }}</router-link>
             <!--<a class="nav-link btn btn-outline-info btn-menu-c rounded-0" v-bind:href="generateBulletinLink()">{{ $t('splash.bulletin') }}</a>-->
-            <router-link v-for="key in keys" :to="{ name: key.text}"  class="nav-link btn btn-outline-info btn-menu-c rounded-0">{{ key.text }}</router-link>
+            <router-link v-for="key in renderKeys" :key="key" :to="{ name: key }" class="nav-link btn btn-outline-info btn-menu-c rounded-0">{{ key }}</router-link>
           </nav>
         </div>
       </div>
@@ -25,10 +24,28 @@ import 'moment/locale/el';
 export default {
   name: 'Splash',
   props: ['keys'],
+  computed: {
+    renderKeys() {
+      // Prefer router-provided keys when available
+      if (this.keys && Array.isArray(this.keys) && this.keys.length) {
+        return this.keys
+          .filter(k => k && k.text)
+          .map(k => k.text);
+      }
+
+      // Fallback to global Trello store if router props haven't been set yet
+      try {
+        if (window && window.TRELLO_STORE) {
+          return Object.keys(window.TRELLO_STORE || {});
+        }
+      } catch (e) {
+        // ignore
+      }
+
+      return [];
+    }
+  },
   methods: {
-    toggleLanguage() {
-      this.$i18n.locale = this.$i18n.locale === 'gr' ? 'en' : 'gr';
-    },
     generateBulletinLink () {
       const currentYear = moment().format('YYYY');
       const currentMonth = moment().format('MM');
@@ -53,31 +70,29 @@ export default {
       margin-top: 32%;
   }
 
-  @media (min-width: 770px) {
-      :not(.nav .nav-link:last-child) {
-          border-right: 0;
-      }
-  }
-  @media (max-width: 770px) {
-      :not(.nav .nav-link:last-child) {
-          border-bottom: 0;
-      }
-  }
-
-  .language-toggle-btn {
-      position: absolute;
-      right: 0px;
-      top: 0px;
-      cursor: pointer;
-  }
+    /* Remove previously-broken :not() selectors that affected global elements.
+     Keep nav styles simple and scoped below. */
 
   .btn-menu-c {
-      border-color: #27ae60;
-      color: #27ae60;
+      border-color: #17a2b8;
+      color: #17a2b8;
   }
 
   .btn-menu-c:hover {
-      background-color: #27ae60;
-      border-color: #27ae60;
+      background-color: #17a2b8;
+      border-color: #17a2b8;
+  }
+  /* Allow nav buttons to wrap but keep them visually contiguous */
+  .jumbotron .nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    justify-content: center;
+  }
+
+  /* Ensure nav links don't get unintended border removals */
+  /* Keep nav buttons visually contiguous horizontally, allow small vertical wrap spacing */
+  .jumbotron .nav .nav-link {
+    margin: 0 0 6px 0;
   }
 </style>
