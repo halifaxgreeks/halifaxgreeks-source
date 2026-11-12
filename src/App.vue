@@ -3,6 +3,7 @@
     <button class="language-toggle-btn btn btn-warning rounded-0" @click="toggleLanguage">
       {{ $t('splash.toggle') }}
     </button>
+    <navigation v-if="$route.name !== 'Splash_root' && $route.name !== 'Splash'" />
     <router-view/>
   </div>
 </template>
@@ -24,6 +25,10 @@ export default {
 </script>
 
 <style>
+body {
+  background: url('~@/assets/greek_church_dull_blurred.jpg') center top / cover fixed no-repeat;
+}
+
 #app {
   position: relative;
 }

@@ -1,8 +1,6 @@
 <template>
   <div class="events bgimage blurred">
     <div class="container container-small">
-      <HeaderHero :title="$t('events.heading')" />
-
       <div v-for="(event, index) in masterList" v-bind:key="event.id">
         <h2 class="month-heading" v-if="((index > 0) && extractMonth(event)!== extractMonth(masterList[index-1])) || index === 0">{{ extractMonth(event) }}</h2>
         <div class="row no-gutters" style="color: #fff; text-decoration: none;">
@@ -33,10 +31,6 @@
 
   import moment from 'moment';
   import 'moment/locale/el';
-
-  import navigation from '@/components/Navigation';
-
-  const HeaderHero = () => import('@/components/HeaderHero');
 
 
   // utility funcs
@@ -76,7 +70,6 @@
 
   export default {
     name: 'Events',
-    components: { HeaderHero },
     data() {
       return {
         masterList: [],

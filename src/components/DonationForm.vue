@@ -1,17 +1,9 @@
 <template>
   <div class="donate bgimage blurred">
     <div class="container container-small">
-      <div class="compact-hero mb-3">
-        <nav class="nav compact-banner">
-          <router-link :to="{ name: 'Splash' }" active-class="active" class="nav-link btn btn-outline-info btn-menu-c rounded-0">{{ $t('splash.title') }}</router-link>
-          <router-link :to="{ name: 'DonateForm' }" active-class="active" class="nav-link btn btn-outline-info btn-menu-c rounded-0">{{ $t('donate.title') }}</router-link>
-        </nav>
-      </div>
-
       <div class="list-group">
         <div class="single-card">
           <div class="list-group-item list-group-item-action flex-column align-items-start">
-
             <!-- Success State -->
             <div v-if="step === 'success'">
               <h5 class="mb-1">{{ $t('donate.thankYou') }}, {{ form.firstName }}.</h5>
@@ -136,11 +128,8 @@
 </template>
 
 <script>
-  import navigation from '@/components/Navigation';
-
   export default {
     name: 'DonateForm',
-    components: { navigation },
     data() {
       return {
         step: 'form',
@@ -174,7 +163,7 @@
       },
       initStripe() {
         // Replace with your Stripe publishable key
-        this.stripe = window.Stripe('pk_live_YOUR_PUBLISHABLE_KEY');
+        this.stripe = window.Stripe('pk_test_51UW3IHGqkYKD86SaOYyHvuKaSr1isov0vdfj4YulBQvwmVJDp7l6ZRA45KfWt6YUkLuLl2VZyIWS95yXBjiepKAZ007oVmslIj');
         const elements = this.stripe.elements();
         this.cardElement = elements.create('card', {
           style: {
@@ -303,46 +292,4 @@
     max-width: 100%;
   }
 
-  /* Compact banner styling: smaller banner and darker active state */
-  /* Smaller banner strip */
-  .compact-hero {
-    margin-bottom: 0.5rem;
-  }
-
-  .compact-banner {
-    background: rgba(255,255,255,0.75);
-    padding: 6px 10px;
-    border-radius: 3px;
-    box-shadow: 0 1px 1px rgba(0,0,0,0.03);
-    display: inline-block;
-    margin-bottom: 8px;
-  }
-
-  .compact-banner .nav-link {
-    margin-right: 6px;
-    padding: 6px 10px;
-    font-size: 0.95rem;
-  }
-
-  /* Force the compact banner nav to be horizontal (nav element has class 'compact-banner') */
-  .compact-banner {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    gap: 6px;
-    align-items: center;
-  }
-
-  /* Darker teal for active page indication */
-  .compact-hero .nav-link.active,
-  .compact-hero .nav-link:active {
-    background-color: #0f6f77 !important;
-    border-color: #0f6f77 !important;
-    color: #fff !important;
-  }
-
-  .compact-hero .nav-link:hover {
-    background-color: rgba(15,111,119,0.08);
-    color: #0f6f77;
-  }
 </style>
