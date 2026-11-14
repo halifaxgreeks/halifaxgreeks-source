@@ -6,6 +6,7 @@
           <h1 class="display-3 hero-text">{{ $t('splash.mainTitle') }}</h1>
           <br />
           <nav class="nav flex-column flex-md-row">
+            <router-link :to="{ name: 'Splash_root' }" :class="['nav-link', 'btn', 'btn-outline-info', 'btn-menu-c', 'rounded-0', { active: $route.name === 'Splash' || $route.name === 'Splash_root' }]">{{ $t('splash.title') }}</router-link>
             <router-link :to="{ name: 'Events'}" class="nav-link btn btn-outline-info btn-menu-c rounded-0">{{ $t('events.heading') }}</router-link>
             <!--<a class="nav-link btn btn-outline-info btn-menu-c rounded-0" v-bind:href="generateBulletinLink()">{{ $t('splash.bulletin') }}</a>-->
             <router-link v-for="key in renderKeys" :key="key" :to="{ name: key }" class="nav-link btn btn-outline-info btn-menu-c rounded-0">{{ key }}</router-link>
@@ -26,17 +27,29 @@ export default {
   props: ['keys'],
   computed: {
     renderKeys() {
+      this.$i18n.locale;
+      try {
+        if (window && window.TRELLO_STORE) {
+          return Object.keys(window.TRELLO_STORE)
+            .filter(key => !['greek', 'english', 'home', 'splash', 'upcoming events', 'events'].includes(key.trim().toLowerCase()));
+        }
+      } catch (e) {
+        // ignore
+      }
+
       // Prefer router-provided keys when available
       if (this.keys && Array.isArray(this.keys) && this.keys.length) {
         return this.keys
           .filter(k => k && k.text)
-          .map(k => k.text);
+          .map(k => k.text)
+          .filter(key => !['greek', 'english', 'home', 'splash', 'upcoming events', 'events'].includes(key.trim().toLowerCase()));
       }
 
       // Fallback to global Trello store if router props haven't been set yet
       try {
         if (window && window.TRELLO_STORE) {
-          return Object.keys(window.TRELLO_STORE || {});
+          return Object.keys(window.TRELLO_STORE || {})
+            .filter(key => !['greek', 'english', 'home', 'splash', 'upcoming events', 'events'].includes(key.trim().toLowerCase()));
         }
       } catch (e) {
         // ignore
@@ -82,6 +95,12 @@ export default {
       background-color: #17a2b8;
       border-color: #17a2b8;
   }
+
+    .btn-menu-c.active {
+      background-color: #17a2b8;
+      border-color: #17a2b8;
+      color: white;
+    }
   /* Allow nav buttons to wrap but keep them visually contiguous */
   .jumbotron .nav {
     display: flex;

@@ -4,10 +4,13 @@
       <div class="navbar-collapse">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <router-link :to="{ name: 'Splash' }" class="nav-link btn btn-outline-info btn-menu-c rounded-0">{{ $t('splash.title') }}</router-link>
+            <router-link :to="{ name: 'Splash' }" class="nav-link btn btn-outline-info btn-menu-c rounded-0" active-class="active">{{ $t('splash.title') }}</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link :to="{ name: 'Events' }" class="nav-link btn btn-outline-info btn-menu-c rounded-0" active-class="active">{{ $t('events.heading') }}</router-link>
           </li>
           <template v-if="navKeys && navKeys.length">
-            <li v-for="key in navKeys" :key="key" class="nav-item">
+            <li v-for="key in visibleNavKeys" :key="key" class="nav-item" @click="handleNavClick(key)">
               <router-link :to="routeFor(key)" class="nav-link btn btn-outline-info btn-menu-c rounded-0" active-class="active">{{ key }}</router-link>
             </li>
           </template>
@@ -15,7 +18,7 @@
             <li class="nav-item">
               <router-link :to="{ name: 'Events' }" class="nav-link btn btn-outline-info btn-menu-c rounded-0" active-class="active">{{ $t('events.heading') }}</router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" @click="handleNavClick('donate')">
               <router-link :to="{ name: 'DonateForm' }" class="nav-link btn btn-outline-info btn-menu-c rounded-0" active-class="active">{{ $t('donate.title') }}</router-link>
             </li>
           </template>
@@ -33,15 +36,27 @@
     },
     computed: {
       navKeys() {
+        this.$i18n.locale;
         try {
           if (window && window.TRELLO_STORE) {
             return Object.keys(window.TRELLO_STORE || {});
           }
         } catch (e) {}
         return [];
+      },
+      visibleNavKeys() {
+        return this.navKeys.filter((key) => {
+          const normalized = String(key).trim().toLowerCase();
+          return !['greek', 'english', 'home', 'splash', 'upcoming events', 'events'].includes(normalized);
+        });
       }
     },
     methods: {
+      handleNavClick(key) {
+        if (String(key).toLowerCase() === 'donate' && this.$route.name === 'DonateForm') {
+          window.dispatchEvent(new Event('donation-form-reset'));
+        }
+      },
       routeFor(key) {
         if (!key) return { name: 'Splash' };
         const lower = String(key).toLowerCase();

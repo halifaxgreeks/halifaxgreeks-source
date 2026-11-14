@@ -152,20 +152,30 @@
       };
     },
     mounted() {
+      window.addEventListener('donation-form-reset', this.resetDonationForm);
       this.loadStripe();
+    },
+    beforeUnmount() {
+      window.removeEventListener('donation-form-reset', this.resetDonationForm);
     },
     methods: {
       loadStripe() {
+        if (window.Stripe) {
+          this.initStripe();
+          return;
+        }
         const script = document.createElement('script');
         script.src = 'https://js.stripe.com/v3/';
         script.onload = () => this.initStripe();
         document.head.appendChild(script);
       },
       initStripe() {
+        if (this.cardElement) return;
         // Replace with your Stripe publishable key
         this.stripe = window.Stripe('pk_test_51UW3IHGqkYKD86SaOYyHvuKaSr1isov0vdfj4YulBQvwmVJDp7l6ZRA45KfWt6YUkLuLl2VZyIWS95yXBjiepKAZ007oVmslIj');
         const elements = this.stripe.elements();
         this.cardElement = elements.create('card', {
+          hidePostalCode: true,
           style: {
             base: {
               fontSize: '14px',
@@ -176,6 +186,29 @@
           },
         });
         this.cardElement.mount('#card-element');
+      },
+      resetDonationForm() {
+        if (this.processing) return;
+
+        this.step = 'form';
+        this.customAmount = false;
+        this.errors = {};
+        this.form = {
+          frequency: 'once',
+          amount: 50,
+          firstName: '',
+          lastName: '',
+          email: '',
+          address: '',
+          city: '',
+          postal: '',
+        };
+
+        if (this.cardElement) {
+          this.cardElement.unmount();
+          this.cardElement.clear();
+          this.$nextTick(() => this.cardElement.mount('#card-element'));
+        }
       },
       selectPreset(amount) {
         this.form.amount = amount;
@@ -219,9 +252,13 @@
             this.processing = false;
             return;
           }
+          // const endpoint = this.form.frequency === 'annual'
+          //   ? 'https://api.halifaxgreeks.ca/subscribe'
+          //   : 'https://api.halifaxgreeks.ca/donate';
+
           const endpoint = this.form.frequency === 'annual'
-            ? 'https://api.halifaxgreeks.ca/subscribe'
-            : 'https://api.halifaxgreeks.ca/donate';
+            ? 'https://halifaxgreeks-api.netlify.app/subscribe'
+            : 'https://halifaxgreeks-api.netlify.app/donate';
 
           const res = await fetch(endpoint, {
             method: 'POST',

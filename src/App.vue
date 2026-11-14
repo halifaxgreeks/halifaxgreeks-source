@@ -15,6 +15,7 @@ export default {
   methods: {
     toggleLanguage() {
       const nextLocale = this.$i18n.locale === 'gr' ? 'en' : 'gr';
+      window.updateTrelloLanguage(nextLocale);
       this.$i18n.locale = nextLocale;
       document.cookie = `hfxgreeks_language=${nextLocale}; path=/; max-age=31536000`;
     }
