@@ -1,10 +1,6 @@
 <template>
   <div class="events bgimage blurred">
     <div class="container container-small">
-      <h1 class="heading">{{ $t('events.heading') }}</h1>
-
-      <navigation></navigation>
-
       <div v-for="(event, index) in masterList" v-bind:key="event.id">
         <h2 class="month-heading" v-if="((index > 0) && extractMonth(event)!== extractMonth(masterList[index-1])) || index === 0">{{ extractMonth(event) }}</h2>
         <div class="row no-gutters" style="color: #fff; text-decoration: none;">
@@ -35,8 +31,6 @@
 
   import moment from 'moment';
   import 'moment/locale/el';
-
-  import navigation from '@/components/Navigation';
 
 
   // utility funcs
@@ -80,6 +74,14 @@
       return {
         masterList: [],
       };
+    },
+    watch: {
+      '$i18n.locale': {
+        immediate: true,
+        handler() {
+          moment.locale(this.$i18n.locale === 'gr' ? 'el' : 'en');
+        }
+      }
     },
     methods: {
       addToMasterArray(response) {

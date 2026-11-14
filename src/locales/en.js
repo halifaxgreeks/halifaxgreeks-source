@@ -1,0 +1,40 @@
+export default {
+  splash: {
+    mainTitle: "St. George's Greek Orthodox Church and Community Centre",
+    toggle: 'Αλλαγή Γλώσσας',
+    bulletin: 'Current Monthly Bulletin',
+    title: 'Home',
+  },
+  events: {
+    heading: 'Upcoming Events',
+    allDay: 'All day',
+  },
+  donate: {
+    title: 'Donate',
+    heading: 'Donate',
+    formTitle: 'Support Our Community',
+    frequency: 'Frequency',
+    oneTime: 'One-time',
+    annual: 'Annual',
+    amount: 'Amount',
+    other: 'Other',
+    enterAmount: 'Enter amount',
+    annualNote: "You'll be charged ${amount}/year. We'll email you 14 days before renewal.",
+    yourInfo: 'Your information',
+    firstName: 'First name',
+    lastName: 'Last name',
+    email: 'Email address',
+    address: 'Mailing address',
+    city: 'City',
+    postal: 'Postal code',
+    payment: 'Payment',
+    securedByStripe: 'Secured by Stripe. We never see your card details.',
+    donateNow: 'Donate ${amount}',
+    giveAnnually: 'Give ${amount} annually',
+    thankYou: 'Thank you',
+    successMessage: 'Your donation of',
+    receiptNote: 'An official tax receipt will be sent to',
+    renewalNote: "Your donation will renew annually. We'll remind you 14 days before each renewal.",
+    legal: 'By donating you agree to our terms. Tax receipts issued under the Income Tax Act (Canada).'
+  }
+};

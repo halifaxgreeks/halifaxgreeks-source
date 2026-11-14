@@ -1,13 +1,23 @@
 <template>
-  <router-view/>
+  <div id="app">
+    <button class="language-toggle-btn btn btn-warning rounded-0" @click="toggleLanguage">
+      {{ $t('splash.toggle') }}
+    </button>
+    <navigation v-if="$route.name !== 'Splash_root' && $route.name !== 'Splash'" />
+    <router-view/>
+  </div>
 </template>
 
 <script>
 
 export default {
   name: 'app',
-  data () {
-    return {
+  methods: {
+    toggleLanguage() {
+      const nextLocale = this.$i18n.locale === 'gr' ? 'en' : 'gr';
+      window.updateTrelloLanguage(nextLocale);
+      this.$i18n.locale = nextLocale;
+      document.cookie = `hfxgreeks_language=${nextLocale}; path=/; max-age=31536000`;
     }
   },
   mounted() {
@@ -16,8 +26,22 @@ export default {
 </script>
 
 <style>
-#app {
+body {
+  background: url('~@/assets/greek_church_dull_blurred.jpg') center top / cover fixed no-repeat;
 }
+
+#app {
+  position: relative;
+}
+
+.language-toggle-btn {
+  position: fixed;
+  right: 1rem;
+  top: 1rem;
+  z-index: 1030;
+  cursor: pointer;
+}
+
 .bgimage {
     width: 100%;
     min-height: 100vh;
